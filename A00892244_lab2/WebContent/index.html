@@ -1,0 +1,120 @@
+
+<!--
+################################################################
+Modifications may have been made to this file by Campus Pipeline.
+Specific tags have been modified to prevent malicious scripts
+from running or to prevent display problems.  The following
+tags may have been used to replace existing tags in this file
+and can be restored to their original state by removing the 'x':
+xSCRIPT, xSTYLE, xLINK, xBASE, xMETA
+################################################################
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<head>
+<TITLE> Anna's Order Form - COMP 3613 Lab09 </TITLE>
+<LINK REL=STYLESHEET
+      HREF="mainstyle.css"
+      TYPE="text/css">
+	<SCRIPT language="javascript" type="text/javascript">
+
+		re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+		regexp = /^\(?(\d{3})\)?[\.\-\/ ]?(\d{3})[\.\-\/ ]?(\d{4})$/
+
+
+		function submitIt(myForm)
+		{
+			errMsg = ""
+			if(myForm.MemberID.value == ""){
+				errMsg = "Please fill in your MemberID\n"
+			}
+			if(myForm.name.value == ""){
+				errMsg = errMsg + "Please fill in your Name\n"
+			}
+			if(myForm.address.value == ""){
+				errMsg = errMsg + "Please fill in your Address\n"
+			}
+			if (!regexp.test(myForm.phone.value)) {
+				errMsg = errMsg + "Your phone number has been incorrectly formatted (000-000-0000)\n"
+			}
+			if (!re.test(myForm.email.value)) {
+				errMsg = errMsg + "Your email address has been incorrectly formatted (xxx@xxx.xxx)\n"
+			}
+
+			if(errMsg != ""){
+				alert(errMsg)
+				myForm.focus()
+				return false
+			}
+			return true
+		}
+	 </SCRIPT>
+</head>
+<BODY >
+
+<!-- header section -->
+<div id="header"> 
+	<H1>COMP 3613 Lab09</H1>
+	<H2>Bullwinkle Moose, A00123456</H2>
+</div>
+
+<!-- main document body -->
+<div id="mainDoc">
+<form action="lab02" name="orderForm" method="post" >
+<!-- form action="lab02" name="orderForm" method="post" onSubmit="return submitIt(this)" -->
+<table align="center" >
+	
+	<tr>
+		<td align="center"><h1>Anna's Order Form</h1></td>
+	</tr>
+</table>
+<table align="center" >
+	<tr>
+		<td align="right">Member ID:</td>
+		<td ><input type="password" name="MemberID"/></td>
+	</tr>
+	<tr>
+		<td align="right">Name:</td>
+		<td ><input type="text" name="name"/></td>
+	</tr>
+	<tr>
+		<td align="right">Address:</td>
+		<td><input type="text" name="address"/></td>
+	</tr>
+	<tr>
+		<td align="right">Country:</td>
+		<td><script type="text/javascript" src="country.js"></script></td>
+	</tr>
+	<tr>
+		<td align="right">Phone Number:</td>
+		<td ><input type="text" name="phone"/></td>
+	</tr>
+	<tr>
+		<td align="right">Email:</td>
+		<td ><input type="text" name="email"/></td>
+	</tr>
+	<tr>
+		<td align="right">Include Catalog:</td>
+		<td ><input type="checkbox" name="cat"/></td>
+	</tr>
+</table>
+<table align="center">
+	<tr>
+		<td>Choose a seed package:&nbsp;&nbsp;dill<input type="radio" name="seed" value="dill" checked/>&nbsp;
+		<td>sage<input type="radio" name="seed" value="sage"/>&nbsp;
+		<td>oregano<input type="radio" name="seed" value="oregano"/>&nbsp;
+		<td>mint<input type="radio" name="seed" value="mint"/>&nbsp;
+	</tr>
+</table>
+<table align="center">
+	<tr>
+		<td ><input type="submit" value="Place Order"class="btn" /></td>
+		<td ><input type="reset" class="btn"/></td>
+	</tr>
+</table>
+</form>
+<br />
+</div>
+</BODY>
+</HTML>
+
