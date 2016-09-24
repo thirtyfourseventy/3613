@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HtmlPageBuilder {
 
-	private static final String emailRegex = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
-	private static final String phoneRegex = "^\\(?(\\d{3})\\)?[\\.\\-\\/ ]?(\\d{3})[\\.\\-\\/ ]?(\\d{4})$";
+	private static final String EMAIL_REGEX = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
+	private static final String PHONE_REGEX = "^\\(?(\\d{3})\\)?[\\.\\-\\/ ]?(\\d{3})[\\.\\-\\/ ]?(\\d{4})$";
 
 	/**
 	 * 
@@ -23,6 +23,11 @@ public class HtmlPageBuilder {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public static String returnValidationHtml(HttpServletRequest request){
 		String title = "A00892244 COMP-3613 Lab2";
 		
@@ -41,18 +46,18 @@ public class HtmlPageBuilder {
 			if (paramValues.length == 1) {
 				String paramValue = paramValues[0];
 				if (paramValue.length() == 0)
-					html.append("<I>No Value</I></TD>");
+					html.append("<em>Please enter your " + paramName + "</em></TD>");
 				else if (paramName.equals("email")) {
-					if (RegexValidator.isValidInput(paramValue, emailRegex)) {
+					if (RegexValidator.isValidInput(paramValue, EMAIL_REGEX)) {
 						html.append(paramValue + "</TD>");
 					} else {
-						html.append("Invalid email format.  Expected <name>@<emailservice>.<domain>");
+						html.append("<em>Your email address has been incorrectly formatted (xxx@xxx.xxx)</em>");
 					}
 				} else if (paramName.equals("phone")) {
-					if (RegexValidator.isValidInput(paramValue, phoneRegex)) {
+					if (RegexValidator.isValidInput(paramValue, PHONE_REGEX)) {
 						html.append(paramValue + "</TD>");
 					} else {
-						html.append("Invalid.  Must be a valid phone number.  Expected: XXX-XXX-XXXX");
+						html.append("<em>Your phone number has been incorrectly formatted (000-000-0000)</em>");
 					}
 				} else {
 					html.append(paramValue + "</TD>");
@@ -67,7 +72,7 @@ public class HtmlPageBuilder {
 			}
 			html.append("</TR>");
 		}
-		html.append("<TR><TD><a href='index.html'>Try again</a></TD><TD></TD></TR>");
+		html.append("<TR><TD></TD><TD><a href='index.html'>Try again</a></TD></TR>");
 		html.append("</TABLE></SECTION>\n</BODY></HTML>");
 		return html.toString();
 	}

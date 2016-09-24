@@ -17,6 +17,12 @@ public class RegexValidator {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param input
+	 * @param pattern
+	 * @return
+	 */
 	public static boolean isValidInput(String input, String pattern) {
 		Pattern patt = Pattern.compile(pattern);
 		Matcher match = patt.matcher(input);
