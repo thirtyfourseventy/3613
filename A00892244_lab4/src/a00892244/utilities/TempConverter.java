@@ -18,13 +18,13 @@ public class TempConverter {
 
 	public static int calculateCelsius(String farhenheit) {
 		double number = Double.parseDouble(farhenheit);
-		return (int) (5.0 / 9.0 * ( number - 32 ));
+		return (int) (5.0 / 9.0 * (number - 32));
 	}
-	
+
 	public static int calculateFarhenheit(String celsius) {
 		double number = Double.parseDouble(celsius);
 		return (int) (9.0 / 5.0 * number + 32);
 
 	}
-	
+
 }

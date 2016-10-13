@@ -2,15 +2,14 @@
 <!-- JSP init() -->
 <%@page import="a00892244.utilities.TempConverter"%>
 <%!private ServletContext servletContext;
-	private String prompt = "";
-	private String temperature = "";
-	private String unit = "";
 
 	public void jspInit() {
 		ServletConfig config = getServletConfig();
-		prompt = config.getInitParameter("instruction");
-		System.out.print(prompt);
 	}%>
+
+<%
+	session.setAttribute("prompt", config.getInitParameter("instruction"));
+%>
 
 <!DOCTYPE html>
 <html>
@@ -34,7 +33,7 @@
 
 <body>
 	<header>
-		<h1>Edward Lambke A00892244 Lab3</h1>
+		<h1>Edward Lambke A00892244 Lab4</h1>
 	</header>
 
 	<section>
@@ -42,11 +41,8 @@
 			if (!isTempAndUnitEntered(request)) {
 		%>
 		<form action="./">
-			<h1>
-				<%
-					out.print(prompt);
-				%>
-			</h1>
+
+			<h1>${prompt}</h1>
 
 			<h3>The current time is</h3>
 			<h3>
@@ -67,32 +63,25 @@
 
 		<%
 			if (isTempAndUnitEntered(request)) {
-				temperature = request.getParameter("temp");
-				unit = request.getParameter("unit");
+				String temperature = request.getParameter("temp");
+				String unit = request.getParameter("unit");
 		%>
-		<h2>
+		<h2>${param.temp}
+			converted to ${param.unit} is:
 			<%
-				out.print(temperature);
-			%>
-			converted to
-			<%
-				out.print(unit);
-			%>
-			is:
-			<%
-				try {
-						if (unit.matches("celsius")) {
-							out.print(TempConverter.calculateCelsius(temperature));
-						} else {
-							out.print(TempConverter.calculateFarhenheit(temperature));
-						}
-						response.setHeader("Refresh", "3; URL=./");
-
-					} catch (NumberFormatException e) {
-						response.sendError(response.SC_BAD_REQUEST,
-								"Invalid user input, \"" + temperature + "\".  Enter ##.#");
+			try {
+					if (unit.matches("celsius")) {
+						out.print(TempConverter.calculateCelsius(temperature));
+					} else {
+						out.print(TempConverter.calculateFarhenheit(temperature));
 					}
-			%>
+					response.setHeader("Refresh", "3; URL=./");
+
+				} catch (NumberFormatException e) {
+					response.sendError(response.SC_BAD_REQUEST,
+							"Invalid user input, \"" + temperature + "\".  Enter ##.#");
+				}
+		%>
 
 		</h2>
 		<%
