@@ -104,15 +104,15 @@ public class DataManager {
 	}
 
 	public void addRecord(BrewingRecord record) {
-		
-		System.out.println("adding " + record.dataOnlyToString());
+
+		System.out.println("adding " + record.dataToString());
 		try {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			String strInsert = "INSERT INTO " + tableName + "(" + record.fieldNamesToString()+ ") " + "VALUES("
-					+ record.dataOnlyToString() + ")";
+			String strInsert = "INSERT INTO " + tableName + "(" + record.fieldNamesToString() + ") " + "VALUES("
+					+ record.dataToString() + ")";
 
 			System.out.println(strInsert);
-			
+
 			int rowsAffected = stmt.executeUpdate(strInsert);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -208,6 +208,53 @@ public class DataManager {
 			e.printStackTrace();
 		}
 		return allRecords;
+	}
+
+	public void deleteRecord(int number) {
+		String delete = "DELETE FROM " + tableName + " WHERE number = " + number;
+		
+		System.out.println(delete);
+
+		try {
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			stmt.executeUpdate(delete);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateRecord(BrewingRecord record) {
+		
+		try {
+		String update = "UPDATE " + tableName + " SET "
+				+ " name = '" + record.getName() + "'," 
+				+ " brew_date = '" + record.getBrew_date() + "'," 
+				+ " grist = '" + record.getGrist() + "'," 
+				+ " hops = '" + record.getHops() + "'," 
+				+ " water = '" + record.getWater() + "'," 
+				+ " yeast = '" + record.getYeast() + "'," 
+				+ " yeast_code = '" + record.getYeast_code() + "'," 
+				+ " pitching_temp = '" + record.getPitching_temp() + "'," 
+				+ " ferment_temp = '" + record.getFerment_temp() + "'," 
+				+ " og = " + record.getOg() + "," 
+				+ " fg = " + record.getFg() + ","
+				+ " abv = " + record.getAbv() + ","
+				+ " package_date = '" + record.getPackage_date() + "'," 
+				+ " notes = '" + record.getNotes() + "'" 
+				+ " WHERE number = "+ record.getNumber();
+		
+		System.out.println(update);
+			
+				stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				stmt.executeUpdate(update);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
