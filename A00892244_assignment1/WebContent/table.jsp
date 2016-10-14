@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@page import="java.util.*"%>
+<%@page import="a00892244.assignment1.data.BrewingRecord"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +14,37 @@
 <body>
 
 <header>
-Here is some shit: ${requestScope.test} ...Yup there it is
+<h1>Brewing Records</h1>
 </header>
 
 <section>
 
-<%  %>
+<% 
+	List<BrewingRecord> records = (ArrayList<BrewingRecord>)request.getAttribute("records");
+	for(BrewingRecord record : records) {
+		out.print(record.toString() + "<hr />");
+	}
+
+%>
+
+		<form METHOD="POST" ACTION="assignment1">
+			<input type="text" name="number" placeholder="number">
+			<input type="text" name="name" placeholder="name">
+			<input type="text" name="brew_date" placeholder="brew_date">
+			<input type="text" name="grist" placeholder="grist">
+			<input type="text" name="hops" placeholder="hops">
+			<input type="text" name="water" placeholder="water">
+			<input type="text" name="yeast" placeholder="yeast">
+			<input type="text" name="yeast_code" placeholder="yeast_code">
+			<input type="text" name="pitching_temp" placeholder="pitching_temp">
+			<input type="text" name="ferment_temp" placeholder="ferment_temp">
+			<input type="text" name="og" placeholder="og">
+			<input type="text" name="fg" placeholder="fg">
+			<input type="text" name="abv" placeholder="abv">
+			<input type="text" name="package_date" placeholder="package_date">
+			<input type="text" name="notes" placeholder="notes">
+			<input type="submit" value="add"> 
+		</form>
 
 
 </section>

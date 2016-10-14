@@ -323,7 +323,18 @@ public class BrewingRecord {
 				+ ", pitching_temp=" + pitching_temp + ", ferment_temp=" + ferment_temp + ", og=" + og + ", fg=" + fg
 				+ ", abv=" + abv + ", package_date=" + package_date + ", notes=" + notes + "]";
 	}
-
+	
+	public String dataOnlyToString() { 
+		return number + "," + name + "," + brew_date + "," + grist
+				+ "," + hops + "," + water + "," + yeast + "," + yeast_code
+				+ "," + pitching_temp + "," + ferment_temp + "," + og + "," + fg
+				+ "," + abv + "," + package_date + "," + notes;
+	}
+	
+	public String fieldNamesToString() {
+		return "number, name, brew_date, grist, hops, water, yeast, yeast_code, pitching_temp, "
+				+ "ferment_temp, og, fg, abv, package_date, notes";
+	}
 	
 	
 }

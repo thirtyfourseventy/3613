@@ -37,7 +37,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Assignment1Servlet</servlet-name>
-		<url-pattern>/db</url-pattern>
+		<url-pattern>/assignment1</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

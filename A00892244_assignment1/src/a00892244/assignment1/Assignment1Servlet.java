@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.List;
 
 @SuppressWarnings("serial")
-@WebServlet("/assignment1")
+//@WebServlet("/assignment1")
 public class Assignment1Servlet extends HttpServlet {
 
 	private DataManager dataManager;
@@ -22,8 +22,7 @@ public class Assignment1Servlet extends HttpServlet {
 		
 		dataManager = new DataManager(getServletContext().getInitParameter("Driver"), getServletContext().getInitParameter("URL"), getServletContext().getInitParameter("User"),
 				getServletContext().getInitParameter("Password"), getServletContext().getInitParameter("DatabaseName"), getServletContext().getInitParameter("Table"));
-		
-		System.out.println(dataManager.getAll().toString());
+
 	}
 	
 	
@@ -31,8 +30,6 @@ public class Assignment1Servlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 				
 		List<BrewingRecord> brewingRecords = dataManager.getAll(); 
-		
-		System.out.println(brewingRecords.get(1).getName());
 		
 		request.setAttribute("test", brewingRecords.get(1).getName());
 		
@@ -50,35 +47,36 @@ public class Assignment1Servlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		double inputTemperature = 0.0;
-
-		double returnValue = 0.0;
-
-		request.setAttribute("inputValue", request.getParameter("input"));
-
-		request.setAttribute("choice", request.getParameter("tempType"));
+		
 
 		try {
-
-			inputTemperature = Double
-					.parseDouble(request.getParameter("input"));
-			response.setHeader("Refresh", "5; URL=" + "index.jsp");
-
-			if (request.getParameter("tempType").equals("celsius")) {
-				
-//				returnValue = convert.convertToCelsius(inputTemperature);
-			} else {
-				
-//				returnValue = convert.convertToFahrenheit(inputTemperature);
-			}
-
-			request.setAttribute("output", returnValue);
+			
+			System.out.println("Here we are!");
+			
+			BrewingRecord newRecord = new BrewingRecord(
+					Integer.parseInt(request.getParameter("number")),
+					request.getParameter("name"),
+					request.getParameter("brew_date"),
+					request.getParameter("grist"),
+					request.getParameter("hops"),
+					request.getParameter("water"),
+					request.getParameter("yeast"),
+					request.getParameter("yeast_code"),
+					request.getParameter("pitching_temp"),
+					request.getParameter("ferment_temp"),
+					Double.parseDouble(request.getParameter("og")),
+					Double.parseDouble(request.getParameter("fg")),
+					Double.parseDouble(request.getParameter("abv")),
+					request.getParameter("package_date"),
+					request.getParameter("notes")
+				);
+			
+			dataManager.addRecord(newRecord);
+			
 
 			response.setContentType("text/html");
 
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-			dispatcher.forward(request, response);
+			doGet(request, response);
 		} catch (NumberFormatException nfe) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
 					"Invalid user input, \"" + request.getParameter("input")

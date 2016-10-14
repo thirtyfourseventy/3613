@@ -30,18 +30,14 @@ public class DataManager {
 	public DataManager() {
 
 	}
-	
-	public DataManager(String driver, String url, String user, String password, String dbname, String table) { 
-		try {
-			
-			System.out.println(driver + "  " + url);
 
+	public DataManager(String driver, String url, String user, String password, String dbname, String table) {
+		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 
 			tableName = table;
-			
-			System.out.println("HURRAY!!!");
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -107,48 +103,65 @@ public class DataManager {
 		}
 	}
 
+	public void addRecord(BrewingRecord record) {
+		
+		System.out.println("adding " + record.dataOnlyToString());
+		try {
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			String strInsert = "INSERT INTO " + tableName + "(" + record.fieldNamesToString()+ ") " + "VALUES("
+					+ record.dataOnlyToString() + ")";
+
+			System.out.println(strInsert);
+			
+			int rowsAffected = stmt.executeUpdate(strInsert);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void updateableRS() {
 		try {
-			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-												ResultSet.CONCUR_UPDATABLE);
-			
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
 			String select = "SELECT * FROM " + tableName;
-			queryResults = stmt.executeQuery (select);
+			queryResults = stmt.executeQuery(select);
 
-			/*String insert = "INSERT INTO musicians_xyz(id, lName, fName) " +
-						"VALUES(5, 'Bach', 'J.S.')";
-			int rowsAffected = stmt.executeUpdate(insert);*/
-			
-//			queryResults.moveToInsertRow();
-//			queryResults.updateInt("id", 5);
-//			queryResults.updateString("lname", "Bach");
-//			queryResults.updateString("fname", "J.S.");
-//			queryResults.insertRow();
-//			queryResults.moveToCurrentRow();
+			/*
+			 * String insert = "INSERT INTO musicians_xyz(id, lName, fName) " +
+			 * "VALUES(5, 'Bach', 'J.S.')"; int rowsAffected =
+			 * stmt.executeUpdate(insert);
+			 */
 
-//
-//			select = "SELECT * FROM musicians_xyz";
-//			queryResults = stmt.executeQuery (select);
+			// queryResults.moveToInsertRow();
+			// queryResults.updateInt("id", 5);
+			// queryResults.updateString("lname", "Bach");
+			// queryResults.updateString("fname", "J.S.");
+			// queryResults.insertRow();
+			// queryResults.moveToCurrentRow();
+
+			//
+			// select = "SELECT * FROM musicians_xyz";
+			// queryResults = stmt.executeQuery (select);
 
 			display();
 
-//			String delete= "DELETE FROM musicians_xyz WHERE id=5";
-//			int rowsAffected = stmt.executeUpdate(delete);
-//
-//			select = "SELECT * FROM musicians_xyz";
-//			queryResults = stmt.executeQuery (select);
-//			
-//			display();
+			// String delete= "DELETE FROM musicians_xyz WHERE id=5";
+			// int rowsAffected = stmt.executeUpdate(delete);
+			//
+			// select = "SELECT * FROM musicians_xyz";
+			// queryResults = stmt.executeQuery (select);
+			//
+			// display();
 
-
-		} catch(SQLException ex) {
-		ex.printStackTrace();
-		} catch(Exception ex) {
-		ex.printStackTrace();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
-	
-	public void close() { 
+
+	public void close() {
 
 		try {
 			stmt.close();
@@ -160,36 +173,33 @@ public class DataManager {
 
 	}
 
-	public void display()
-	{
+	public void display() {
 		try {
-			while (queryResults.next()) 
-			{
-				System.out.print( queryResults.getInt ("number"));
-				System.out.print( ". " + queryResults.getString("name").trim());
-				System.out.println( " " + queryResults.getString("og").trim());
+			while (queryResults.next()) {
+				System.out.print(queryResults.getInt("number"));
+				System.out.print(". " + queryResults.getString("name").trim());
+				System.out.println(" " + queryResults.getString("og").trim());
 			}
-		}catch(SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		System.out.println("\n");
 	}
-	
+
 	public List<BrewingRecord> getAll() {
 		ArrayList<BrewingRecord> allRecords = new ArrayList<BrewingRecord>();
 		String select = "SELECT * FROM " + tableName;
-		
-		
+
 		try {
-			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-					ResultSet.CONCUR_UPDATABLE);
-			queryResults = stmt.executeQuery (select);
-			while (queryResults.next()){
-				BrewingRecord record = new BrewingRecord(
-						queryResults.getInt("number"), queryResults.getString("name"), queryResults.getString("brew_date"),
-						queryResults.getString("grist"), queryResults.getString("hops"), queryResults.getString("water"),
-						queryResults.getString("yeast"), queryResults.getString("yeast_code"), queryResults.getString("pitching_temp"),
-						queryResults.getString("ferment_temp"), queryResults.getDouble("og"), queryResults.getDouble("fg"), queryResults.getDouble("abv"),
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			queryResults = stmt.executeQuery(select);
+			while (queryResults.next()) {
+				BrewingRecord record = new BrewingRecord(queryResults.getInt("number"), queryResults.getString("name"),
+						queryResults.getString("brew_date"), queryResults.getString("grist"),
+						queryResults.getString("hops"), queryResults.getString("water"),
+						queryResults.getString("yeast"), queryResults.getString("yeast_code"),
+						queryResults.getString("pitching_temp"), queryResults.getString("ferment_temp"),
+						queryResults.getDouble("og"), queryResults.getDouble("fg"), queryResults.getDouble("abv"),
 						queryResults.getString("package_date"), queryResults.getString("notes"));
 				allRecords.add(record);
 			}
@@ -200,20 +210,14 @@ public class DataManager {
 		return allRecords;
 	}
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		DataManager db = new DataManager();
-		
-//		db.createTable();
-//		db.updateableRS();
+
+		// db.createTable();
+		// db.updateableRS();
 
 		System.out.println(db.getAll().toString());
-		
-		
-		
-		
+
 		db.close();
 	}
 }
-
-
