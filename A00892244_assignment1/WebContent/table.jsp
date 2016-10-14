@@ -10,19 +10,14 @@
 <body>
 
 <header>
-<h1>Edward Lambke A00892244</h1>
+Here is some shit: ${requestScope.test} ...Yup there it is
 </header>
 
 <section>
-<h1>Assignment 1</h1>
 
-<h2>Click here to start </h2>
+<%  %>
 
-<FORM METHOD="GET" ACTION="assignment1">
-<input type="submit" value="Start">
-</FORM>
 
 </section>
-
 </body>
 </html>

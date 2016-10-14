@@ -28,17 +28,20 @@ public class DataManager {
 	 * 
 	 */
 	public DataManager() {
+
+	}
+	
+	public DataManager(String driver, String url, String user, String password, String dbname, String table) { 
 		try {
+			
+			System.out.println(driver + "  " + url);
 
-			System.out.println(new File(".").getAbsolutePath());
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
 
-			Properties props = new Properties();
-			props.load(new FileInputStream("files" + File.separator + "a00892244dbprops.properties"));
-
-			Class.forName(props.getProperty("Driver"));
-			con = DriverManager.getConnection(props.getProperty("URL"), props);
-
-			tableName = props.getProperty("Table");
+			tableName = table;
+			
+			System.out.println("HURRAY!!!");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
