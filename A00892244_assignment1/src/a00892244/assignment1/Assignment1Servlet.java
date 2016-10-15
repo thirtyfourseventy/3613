@@ -28,15 +28,21 @@ public class Assignment1Servlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try {
+			List<BrewingRecord> brewingRecords;
 
-		List<BrewingRecord> brewingRecords = dataManager.getAll();
+			brewingRecords = dataManager.getAll();
 
-		request.setAttribute("records", brewingRecords);
+			request.setAttribute("records", brewingRecords);
 
-		response.setContentType("text/html");
+			response.setContentType("text/html");
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
-		dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
+			dispatcher.forward(request, response);
+
+		} catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+		}
 
 	}
 
@@ -58,8 +64,7 @@ public class Assignment1Servlet extends HttpServlet {
 			if (!request.getParameter("abv").trim().equals("") && request.getParameter("abv") != null) {
 				abv = Double.parseDouble(request.getParameter("abv").trim());
 			}
-			if (request.getParameter("name").trim().length() == 4) {
-				System.out.println("HERE!!!!!!!!!!!!!!!!!!");
+			if (request.getParameter("name").trim().length() == 0) {
 				throw new Exception("name is a required field");
 			}
 
@@ -90,18 +95,16 @@ public class Assignment1Servlet extends HttpServlet {
 			if (action.contains("Update")) {
 				record.setUidpk(request.getParameter("uidpk"));
 				dataManager.updateRecord(record);
-
 			}
 
-			doGet(request, response);
-
 		} catch (NumberFormatException nfe) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					"Invalid user input, Enter ##.####");
+			request.setAttribute("error", HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, Enter ##.####");
 
 		} catch (Exception e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid user input, " + e.getMessage());
+			request.setAttribute("error",
+					HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
 		}
+		doGet(request, response);
 
 	}
 }

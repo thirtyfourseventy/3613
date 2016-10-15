@@ -33,13 +33,11 @@ public class DataManager {
 
 		try {
 			Properties props = new Properties();
-					props.load(new FileInputStream("files" + File.separator
-						+ "a00892244dbprops.properties"));
-
+			props.load(new FileInputStream("files" + File.separator + "a00892244dbprops.properties"));
 
 			Class.forName(props.getProperty("Driver"));
 			con = DriverManager.getConnection(props.getProperty("URL"), props);
-			
+
 			tableName = props.getProperty("Table");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -54,9 +52,7 @@ public class DataManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 
 	public DataManager(String driver, String url, String user, String password, String dbname, String table) {
@@ -80,7 +76,7 @@ public class DataManager {
 			String createTable = "CREATE TABLE " + tableName + "(uidpk CHAR(64), number INT, name CHAR(64), "
 					+ "brew_date CHAR(64), grist CHAR(512), hops CHAR(512), water CHAR(64), yeast CHAR(64), "
 					+ "yeast_code CHAR(64), pitching_temp CHAR(64), ferment_temp CHAR(64), og DECIMAL(16,3), "
-					+ "fg DECIMAL(16,3), abv DECIMAL(16,3), package_date CHAR(64), notes CHAR(64)) ";
+					+ "fg DECIMAL(16,3), abv DECIMAL(16,3), package_date CHAR(64), notes CHAR(512)) ";
 
 			stmt.execute(createTable);
 
@@ -125,7 +121,7 @@ public class DataManager {
 			rowsAffected = stmt.executeUpdate(strInsert);
 
 			queryResults = stmt.executeQuery("SELECT * FROM " + tableName);
-			
+
 			display();
 
 		} catch (SQLException ex) {
@@ -133,7 +129,7 @@ public class DataManager {
 		}
 	}
 
-	public void addRecord(BrewingRecord record) {
+	public void addRecord(BrewingRecord record) throws Exception {
 
 		System.out.println("adding " + record.dataToString());
 		try {
@@ -145,12 +141,9 @@ public class DataManager {
 
 			int rowsAffected = stmt.executeUpdate(strInsert);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
 	}
-
-
 
 	public void close() {
 
@@ -177,7 +170,7 @@ public class DataManager {
 		System.out.println("\n");
 	}
 
-	public List<BrewingRecord> getAll() {
+	public List<BrewingRecord> getAll() throws Exception {
 		ArrayList<BrewingRecord> allRecords = new ArrayList<BrewingRecord>();
 		String select = "SELECT * FROM " + tableName;
 
@@ -185,78 +178,65 @@ public class DataManager {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			queryResults = stmt.executeQuery(select);
 			while (queryResults.next()) {
-				BrewingRecord record = new BrewingRecord(queryResults.getString("uidpk"), queryResults.getInt("number"), queryResults.getString("name"),
-						queryResults.getString("brew_date"), queryResults.getString("grist"),
-						queryResults.getString("hops"), queryResults.getString("water"),
-						queryResults.getString("yeast"), queryResults.getString("yeast_code"),
-						queryResults.getString("pitching_temp"), queryResults.getString("ferment_temp"),
-						queryResults.getDouble("og"), queryResults.getDouble("fg"), queryResults.getDouble("abv"),
+				BrewingRecord record = new BrewingRecord(queryResults.getString("uidpk"), queryResults.getInt("number"),
+						queryResults.getString("name"), queryResults.getString("brew_date"),
+						queryResults.getString("grist"), queryResults.getString("hops"),
+						queryResults.getString("water"), queryResults.getString("yeast"),
+						queryResults.getString("yeast_code"), queryResults.getString("pitching_temp"),
+						queryResults.getString("ferment_temp"), queryResults.getDouble("og"),
+						queryResults.getDouble("fg"), queryResults.getDouble("abv"),
 						queryResults.getString("package_date"), queryResults.getString("notes"));
 				allRecords.add(record);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
 		return allRecords;
 	}
 
-	public void deleteRecord(BrewingRecord record) {
+	public void deleteRecord(BrewingRecord record) throws Exception {
 		String delete = "DELETE FROM " + tableName + " WHERE uidpk = '" + record.getUidpk() + "'";
-		
+
 		System.out.println(delete);
 
 		try {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			stmt.executeUpdate(delete);
-			
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
 	}
-	
-	public void updateRecord(BrewingRecord record) {
-		
+
+	public void updateRecord(BrewingRecord record) throws Exception {
+
 		try {
-		String update = "UPDATE " + tableName + " SET "
-				+ " number = '" + record.getNumber() + "'," 
-				+ " name = '" + record.getName() + "'," 
-				+ " brew_date = '" + record.getBrew_date() + "'," 
-				+ " grist = '" + record.getGrist() + "'," 
-				+ " hops = '" + record.getHops() + "'," 
-				+ " water = '" + record.getWater() + "'," 
-				+ " yeast = '" + record.getYeast() + "'," 
-				+ " yeast_code = '" + record.getYeast_code() + "'," 
-				+ " pitching_temp = '" + record.getPitching_temp() + "'," 
-				+ " ferment_temp = '" + record.getFerment_temp() + "'," 
-				+ " og = " + record.getOg() + "," 
-				+ " fg = " + record.getFg() + ","
-				+ " abv = " + record.getAbv() + ","
-				+ " package_date = '" + record.getPackage_date() + "'," 
-				+ " notes = '" + record.getNotes() + "'" 
-				+ " WHERE uidpk = '"+ record.getUidpk() + "'";
-		
-		System.out.println(update);
-			
-				stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-				stmt.executeUpdate(update);
-			
+			String update = "UPDATE " + tableName + " SET " + " number = '" + record.getNumber() + "'," + " name = '"
+					+ record.getName() + "'," + " brew_date = '" + record.getBrew_date() + "'," + " grist = '"
+					+ record.getGrist() + "'," + " hops = '" + record.getHops() + "'," + " water = '"
+					+ record.getWater() + "'," + " yeast = '" + record.getYeast() + "'," + " yeast_code = '"
+					+ record.getYeast_code() + "'," + " pitching_temp = '" + record.getPitching_temp() + "',"
+					+ " ferment_temp = '" + record.getFerment_temp() + "'," + " og = " + record.getOg() + "," + " fg = "
+					+ record.getFg() + "," + " abv = " + record.getAbv() + "," + " package_date = '"
+					+ record.getPackage_date() + "'," + " notes = '" + record.getNotes() + "'" + " WHERE uidpk = '"
+					+ record.getUidpk() + "'";
+
+			System.out.println(update);
+
+			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			stmt.executeUpdate(update);
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
 	}
 
 	public static void main(String[] args) {
-		
+
 		System.out.println("Starting..");
 		DataManager db = new DataManager();
 
-		 db.createTable();
-
-		System.out.println(db.getAll().toString());
+		db.createTable();
 
 		db.close();
 	}
