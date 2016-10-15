@@ -55,6 +55,7 @@ public class Assignment1Servlet extends HttpServlet {
 
 			if (action.contentEquals("Create")) {
 
+				record.newUidpk();
 				dataManager.addRecord(record);
 
 				response.setContentType("text/html");
@@ -62,14 +63,14 @@ public class Assignment1Servlet extends HttpServlet {
 			}
 
 			if (action.contains("Delete")) {
-				;
-
-				dataManager.deleteRecord(record.getNumber());
+				
+				record.setUidpk(request.getParameter("uidpk"));
+				dataManager.deleteRecord(record);
 
 			}
 
 			if (action.contains("Update")) {
-
+				record.setUidpk(request.getParameter("uidpk"));
 				dataManager.updateRecord(record);
 
 			}

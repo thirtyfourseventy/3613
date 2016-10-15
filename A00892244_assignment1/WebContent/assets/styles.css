@@ -2,12 +2,11 @@
  * Edward Lambke A00892244
  */
 body {
-	min-width: 500px;
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	color: white;
 }
 
-header, section {
+header, section, table {
 	background-color: #e6e600;
 	text-align: center;
 	border-radius: 20px;
@@ -15,6 +14,7 @@ header, section {
 	margin: 10px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
+	width: 100%;
 }
 
 header {
@@ -34,4 +34,16 @@ form {
 a {
 	color: gray;
 	text-decoration: none;
+}
+
+table {
+	/* table-layout: fixed; 
+	display: inline-block; */
+}
+tr {
+
+}
+td, th {
+	margin: 5px;
+	border: 2px none black;
 }
