@@ -124,7 +124,9 @@ public class DataManager {
 					+ "'US-05','11224 022 1717 01 2017','','18C','1.048',1.012,4.825737265,'07-30-2016','')";
 			rowsAffected = stmt.executeUpdate(strInsert);
 
-			ResultSet results = stmt.executeQuery("SELECT * FROM " + tableName);
+			queryResults = stmt.executeQuery("SELECT * FROM " + tableName);
+			
+			display();
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -248,6 +250,8 @@ public class DataManager {
 	}
 
 	public static void main(String[] args) {
+		
+		System.out.println("Starting..");
 		DataManager db = new DataManager();
 
 		 db.createTable();

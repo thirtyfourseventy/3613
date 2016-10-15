@@ -21,7 +21,8 @@
 		<table>
 			<tr>
 				<th>number</th><th>name</th><th>brew_date</th><th>grist</th><th>hops</th><th>water</th>
-				<th>yeast</th><th>yeast_code</th><th>pitching_temp</th><th>ferment_temp</th><th>og</th>
+				<th>yeast</th><th>yeast_code</th><th>pitching_temp</th><th>ferment_temp</th><th>og</th><th>fg</th><th>abv</th>
+				<th>package_date</th><th>notes</th>
 			</tr>
 
 			<%
@@ -32,11 +33,11 @@
 			<tr>
 				<form METHOD="POST" ACTION="assignment1">
 				<td><input type="text" name="number"
-					value="<%out.print(record.getNumber());%>">
+					value="<%out.print(record.getNumber());%>" pattern="[0-9]{1,3}" title="###" required>
 					<input type="hidden" name="uidpk"
 					value="<%out.print(record.getUidpk());%>"></td>
 				<td><input type="text" name="name"
-					value="<%out.print(record.getName());%>"></td>
+					value="<%out.print(record.getName());%>" pattern="[\s\S]*\S[\s\S]*" title="name is required" required></td>
 				<td><input type="text" name="brew_date"
 					value="<%out.print(record.getBrew_date());%>"></td>
 				<td><input type="text" name="grist"
@@ -54,11 +55,11 @@
 				<td><input type="text" name="ferment_temp"
 					value="<%out.print(record.getFerment_temp());%>"></td>
 				<td><input type="text" name="og"
-					value="<%out.print(record.getOg());%>"></td>
+					value="<%out.print(record.getOg());%>" pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###"></td>
 				<td><input type="text" name="fg"
-					value="<%out.print(record.getFg());%>"></td>
+					value="<%out.print(record.getFg());%>" pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###"></td>
 				<td><input type="text" name="abv"
-					value="<%out.print(record.getAbv());%>"></td>
+					value="<%out.print(record.getAbv());%>" pattern="[0-9]*(?:\.[0-9]{0,3})?" title="##.###"></td>
 				<td><input type="text" name="package_date"
 					value="<%out.print(record.getPackage_date());%>"></td>
 				<td><input type="text" name="notes"
@@ -74,9 +75,9 @@
 			%>
 			<tr>
 				<form METHOD="POST" ACTION="assignment1">
-				<td><input type="text" name="number" placeholder="number">
+				<td><input type="text" name="number" placeholder="number" pattern="[0-9]{1,3}" title="###" required>
 				</td>
-				<td><input type="text" name="name" placeholder="name">
+				<td><input type="text" name="name" placeholder="name" pattern="[\s\S]*\S[\s\S]*" title="name is required" required>
 				</td>
 				<td><input type="text" name="brew_date" placeholder="brew_date">
 				</td>
@@ -94,9 +95,9 @@
 					placeholder="pitching_temp"></td>
 				<td><input type="text" name="ferment_temp"
 					placeholder="ferment_temp"></td>
-				<td><input type="text" name="og" placeholder="og"></td>
-				<td><input type="text" name="fg" placeholder="fg"></td>
-				<td><input type="text" name="abv" placeholder="abv"></td>
+				<td><input type="text" name="og" placeholder="og" pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###"></td>
+				<td><input type="text" name="fg" placeholder="fg" pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###"></td>
+				<td><input type="text" name="abv" placeholder="abv" pattern="[0-9]{1,2}(?:\.[0-9]{1,3})?" title="##.###"></td>
 				<td><input type="text" name="package_date"
 					placeholder="package_date"></td>
 				<td><input type="text" name="notes" placeholder="notes">
@@ -109,4 +110,14 @@
 		</table>
 	
 </body>
+
+<script>
+
+function regexValidator(input, regex){    
+    return input.match(regex);
+}
+
+
+
+</script>
 </html>
