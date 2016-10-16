@@ -8,7 +8,7 @@ import java.math.RoundingMode;
 import java.util.UUID;
 
 /**
- * @author elambke
+ * @author Edward Lambke A00892244
  *
  */
 public class BrewingRecord {
@@ -181,7 +181,7 @@ public class BrewingRecord {
 	 *            the brew_date to set
 	 */
 	public void setBrew_date(String brew_date) {
-		this.brew_date = brew_date;
+		this.brew_date = nullToEmpty(brew_date);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class BrewingRecord {
 	 *            the grist to set
 	 */
 	public void setGrist(String grist) {
-		this.grist = grist;
+		this.grist = nullToEmpty(grist);
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class BrewingRecord {
 	 *            the hops to set
 	 */
 	public void setHops(String hops) {
-		this.hops = hops;
+		this.hops = nullToEmpty(hops);
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class BrewingRecord {
 	 *            the water to set
 	 */
 	public void setWater(String water) {
-		this.water = water;
+		this.water = nullToEmpty(water);
 	}
 
 	/**
@@ -241,7 +241,7 @@ public class BrewingRecord {
 	 *            the yeast to set
 	 */
 	public void setYeast(String yeast) {
-		this.yeast = yeast;
+		this.yeast = nullToEmpty(yeast);
 	}
 
 	/**
@@ -256,7 +256,7 @@ public class BrewingRecord {
 	 *            the yeast_code to set
 	 */
 	public void setYeast_code(String yeast_code) {
-		this.yeast_code = yeast_code;
+		this.yeast_code = nullToEmpty(yeast_code);
 	}
 
 	/**
@@ -271,7 +271,7 @@ public class BrewingRecord {
 	 *            the pitching_temp to set
 	 */
 	public void setPitching_temp(String pitching_temp) {
-		this.pitching_temp = pitching_temp;
+		this.pitching_temp = nullToEmpty(pitching_temp);
 	}
 
 	/**
@@ -286,7 +286,7 @@ public class BrewingRecord {
 	 *            the ferment_temp to set
 	 */
 	public void setFerment_temp(String ferment_temp) {
-		this.ferment_temp = ferment_temp;
+		this.ferment_temp = nullToEmpty(ferment_temp);
 	}
 
 	/**
@@ -348,7 +348,7 @@ public class BrewingRecord {
 	 *            the package_date to set
 	 */
 	public void setPackage_date(String package_date) {
-		this.package_date = package_date;
+		this.package_date = nullToEmpty(package_date);
 	}
 
 	/**
@@ -363,7 +363,7 @@ public class BrewingRecord {
 	 *            the notes to set
 	 */
 	public void setNotes(String notes) {
-		this.notes = notes;
+		this.notes = nullToEmpty(notes);
 	}
 
 	public String dataToString() {
@@ -383,6 +383,12 @@ public class BrewingRecord {
 				+ "ferment_temp, og, fg, abv, package_date, notes";
 	}
 
+	private String nullToEmpty(String string) {
+		if (string == null) {
+			return "";
+		}
+		else return string.trim();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

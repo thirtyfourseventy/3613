@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>A00892244 Edward Lambke</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='assets/styles.css'>
@@ -20,18 +20,19 @@
 	  $("#accordion").accordion({ header: "h3", collapsible: true, active: false });
   } );
   
+  /*
   $( function() {
 	    $( "#datepicker" ).datepicker({dateFormat:'/mm/dd/yy'});
 	    $('#ui-datepicker-div').css('clip', 'auto');
 	  } );
-
+*/
   </script>
 
 </head>
 <body>
 
 	<header>
-		<h1>Brewing Records</h1>
+		<h1>Homebrewing Records</h1>
 	</header>
 
 
@@ -103,8 +104,7 @@
 				<div class="form_fields">
 					<h4>Hops</h4>
 					<textarea name="hops" form="edit_form" maxlength="512" cols="64"
-						rows="8"><%out.print(record.getHops());%>
-					</textarea>
+						rows="8"><%out.print(record.getHops());%></textarea>
 				</div>
 				<div class="form_fields">
 					<h4>Water</h4>

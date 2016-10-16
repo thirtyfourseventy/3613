@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author elambke
+ * @author Edward Lambke A00892244
  *
  */
 public class DataManager {
@@ -80,7 +80,7 @@ public class DataManager {
 
 			stmt.execute(createTable);
 
-			String createIndex = "CREATE UNIQUE INDEX tableKey " + "ON " + tableName + " (number)";
+			String createIndex = "CREATE UNIQUE INDEX tableKey " + "ON " + tableName + " (uidpk)";
 			stmt.execute(createIndex);
 
 			String strInsert = "INSERT INTO " + tableName + "(uidpk, number, name, brew_date, grist, hops, water, "
@@ -172,7 +172,7 @@ public class DataManager {
 
 	public List<BrewingRecord> getAll() throws Exception {
 		ArrayList<BrewingRecord> allRecords = new ArrayList<BrewingRecord>();
-		String select = "SELECT * FROM " + tableName;
+		String select = "SELECT * FROM " + tableName + " ORDER BY number DESC";
 
 		try {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);

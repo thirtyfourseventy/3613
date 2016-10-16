@@ -10,8 +10,14 @@ import a00892244.assignment1.data.DataManager;
 import java.io.*;
 import java.util.List;
 
+
+/**
+ * 
+ * @author Edward Lambke A00892244
+ *
+ */
+
 @SuppressWarnings("serial")
-// @WebServlet("/assignment1")
 public class Assignment1Servlet extends HttpServlet {
 
 	private DataManager dataManager;
