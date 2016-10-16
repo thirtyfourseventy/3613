@@ -6,12 +6,24 @@ body {
 	color: white;
 }
 
+#accordion {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+h3.ui-state-active {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: white;
+	background-color: #e6e600;
+	border-color: #BDBD02;
+}
+
 header, section, table {
+	box-sizing: border-box;
 	background-color: #e6e600;
 	text-align: center;
-	border-radius: 20px;
+	border-radius: 5px;
 	padding: 5px;
-	margin: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 	width: 100%;
@@ -36,9 +48,8 @@ a {
 	text-decoration: none;
 }
 
-table {
-	/* table-layout: fixed; 
-	display: inline-block; */
+table { 
+	display: none; 
 }
 tr {
 
@@ -46,4 +57,9 @@ tr {
 td, th {
 	margin: 5px;
 	border: 2px none black;
+}
+
+.form_fields {
+	float: left;
+	margin: 10px;
 }
