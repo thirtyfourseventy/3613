@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author Edward Lambke A00892244
  *
@@ -38,6 +40,7 @@ public class BrewingRecord {
 	}
 
 	/**
+	 * Constructor for POST
 	 * @param number
 	 * @param name
 	 * @param brew_date
@@ -53,30 +56,53 @@ public class BrewingRecord {
 	 * @param abv
 	 * @param package_date
 	 * @param notes
+	 * @throws Exception
 	 */
-	public BrewingRecord(int number, String name, String brew_date, String grist, String hops, String water,
-			String yeast, String yeast_code, String pitching_temp, String ferment_temp, double og, double fg,
-			String package_date, String notes) {
+	public BrewingRecord(String number, String name, String brew_date, String grist, String hops, String water,
+			String yeast, String yeast_code, String pitching_temp, String ferment_temp, String original_gravity,
+			String final_gravity, String package_date, String notes) throws Exception {
 		super();
-		this.setNumber(number);
-		this.setName(name);
-		this.setBrew_date(brew_date);
-		this.setGrist(grist);
-		this.setHops(hops);
-		this.setWater(water);
-		this.setYeast(yeast);
-		this.setYeast_code(yeast_code);
-		this.setPitching_temp(pitching_temp);
-		this.setFerment_temp(ferment_temp);
-		this.setOg(og);
-		this.setFg(fg);
-		this.setAbv();
-		this.setPackage_date(package_date);
-		this.setNotes(notes);
+		double og = 0;
+		double fg = 0;
+
+		try {
+			if (name.trim().length() == 0 || name == null) {
+				throw new Exception("name is a required field");
+			}
+			if (number.trim().length() == 0) {
+				throw new Exception("number is a required field");
+			}
+
+			if (!original_gravity.trim().equals("") && original_gravity != null) {
+				og = Double.parseDouble(original_gravity.trim());
+			}
+			if (!final_gravity.trim().equals("") && final_gravity != null) {
+				fg = Double.parseDouble(final_gravity.trim());
+			}
+
+			this.setNumber(Integer.parseInt(number));
+			this.setName(name);
+			this.setBrew_date(brew_date);
+			this.setGrist(grist);
+			this.setHops(hops);
+			this.setWater(water);
+			this.setYeast(yeast);
+			this.setYeast_code(yeast_code);
+			this.setPitching_temp(pitching_temp);
+			this.setFerment_temp(ferment_temp);
+			this.setOg(og);
+			this.setFg(fg);
+			this.setAbv();
+			this.setPackage_date(package_date);
+			this.setNotes(notes);
+			
+		} catch (NumberFormatException nfe) {
+			throw new Exception("Invalid user input, Enter ##.####");
+		}
 	}
 
 	/**
-	 * 
+	 * Constructor for DB access
 	 * @param uidpk
 	 * @param number
 	 * @param name
@@ -386,9 +412,10 @@ public class BrewingRecord {
 	private String nullToEmpty(String string) {
 		if (string == null) {
 			return "";
-		}
-		else return string.trim();
+		} else
+			return string.trim();
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -67,6 +67,9 @@ public class DataManager {
 		}
 	}
 
+	/**
+	 * Run as Java Application to invoke createTable
+	 */
 	public void createTable() {
 		try {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
