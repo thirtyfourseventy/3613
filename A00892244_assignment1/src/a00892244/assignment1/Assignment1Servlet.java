@@ -55,6 +55,7 @@ public class Assignment1Servlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
+
 		try {
 			BrewingRecord record = new BrewingRecord(request.getParameter("number").trim(),
 					request.getParameter("name").trim(), request.getParameter("brew_date").trim(),
@@ -70,7 +71,6 @@ public class Assignment1Servlet extends HttpServlet {
 				record.newUidpk();
 				dataManager.addRecord(record);
 
-				response.setContentType("text/html");
 
 			}
 
@@ -90,6 +90,9 @@ public class Assignment1Servlet extends HttpServlet {
 			request.setAttribute("error",
 					HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
 		}
+		
+
+		response.setContentType("text/html");
 		doGet(request, response);
 
 	}

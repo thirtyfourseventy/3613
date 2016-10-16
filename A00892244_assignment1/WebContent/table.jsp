@@ -20,9 +20,9 @@
 	  $("#accordion").accordion({ header: "h3", collapsible: true, active: false });
   } );
   
-  /*
+  /*  NOT WORKING WITH ACCORDION
   $( function() {
-	    $( "#datepicker" ).datepicker({dateFormat:'/mm/dd/yy'});
+	    $( "#datepicker" ).datepicker({dateFormat:'mm/dd/yy'});
 	    $('#ui-datepicker-div').css('clip', 'auto');
 	  } );
 */
@@ -64,7 +64,7 @@
 			%>
 			
 			<% if (record.getAbv() > 0) {
-				out.print(" ABV: " + record.getAbv());
+				out.print("ABV: " + record.getAbv() + "%");
 				}
 			%>
 			
