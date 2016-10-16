@@ -4,6 +4,9 @@
 body {
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	color: white;
+	min-width: 600px;
+	max-width: 900px;
+	margin: auto;
 }
 
 #accordion {

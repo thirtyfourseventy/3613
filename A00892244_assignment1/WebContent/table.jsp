@@ -51,14 +51,22 @@
 			<em>*** <%
 				out.print(record.getName());
 			%>***
-			</em> brewed:
-			<%
-				out.print(record.getBrew_date());
+			</em> 
+			<% if (record.getBrew_date().trim().length() > 0) {
+				out.print(" brewed: " + record.getBrew_date());
+			}
 			%>
-			OG:
-			<%
-				out.print(record.getOg());
+			
+			<% if (record.getOg() > 0) {
+				out.print(" OG: " + record.getOg());
+			}
 			%>
+			
+			<% if (record.getAbv() > 0) {
+				out.print(" ABV: " + record.getAbv());
+				}
+			%>
+			
 
 		</h3>
 
@@ -90,19 +98,12 @@
 				<div class="form_fields">
 					<h4>Grist</h4>
 					<textarea name="grist" form="edit_form" maxlength="512" cols="64"
-						rows="8">
-						<%
-							out.print(record.getGrist());
-						%>
-					</textarea>
+						rows="8"><%out.print(record.getGrist());%></textarea>
 				</div>
 				<div class="form_fields">
 					<h4>Hops</h4>
 					<textarea name="hops" form="edit_form" maxlength="512" cols="64"
-						rows="8">
-						<%
-							out.print(record.getHops());
-						%>
+						rows="8"><%out.print(record.getHops());%>
 					</textarea>
 				</div>
 				<div class="form_fields">
@@ -150,7 +151,7 @@
 					<input type="text" name="abv"
 						value="<%out.print(record.getAbv());%>"
 						pattern="[0-9]*(?:\.[0-9]{0,3})?" title="##.###" maxlength="8"
-						size="8">
+						size="8" disabled>
 				</div>
 				<div class="form_fields">
 					<h4>Package Date</h4>
@@ -160,14 +161,10 @@
 				<div class="form_fields">
 					<h4>Notes</h4>
 					<textarea name="notes" form="edit_form" maxlength="512" cols="64"
-						rows="8">
-						<%
-							out.print(record.getNotes());
-						%>
-					</textarea>
+						rows="8"><%out.print(record.getNotes());%></textarea>
 					<hr />
-					<input type="submit" name="action" value="Update"> <input
-						type="submit" name="action" value="Delete">
+					<input type="submit" name="action" value="Update"> 
+					<input type="submit" name="action" value="Delete">
 				</div>
 			</form>
 
@@ -240,7 +237,7 @@
 				<div class="form_fields">
 					<h4>% ABV</h4>
 					<input type="text" name="abv" pattern="[0-9]*(?:\.[0-9]{0,3})?"
-						title="##.###" maxlength="8" size="8">
+						title="##.###" maxlength="8" size="8" disabled placeholder="calculated">
 				</div>
 				<div class="form_fields">
 					<h4>Package Date</h4>
@@ -262,12 +259,21 @@
 	</div>
 </body>
 
+<script>
+	
+$("input[value=Delete]").click(function(event){
+	if(!confirm('Are you sure you want to delete?'))
+		event.preventDefault();
+});
+
+</script>
+
+
 <%
 	if (request.getAttribute("error") != null) {
 %>
-<script>
-alert(" <%out.print(request.getAttribute("error"));%>
-	");
+<script type="text/javascript">
+alert("<%out.print(request.getAttribute("error"));%>");
 </script>
 <%
 	}

@@ -3,6 +3,8 @@
  */
 package a00892244.assignment1.data;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 /**
@@ -27,15 +29,13 @@ public class BrewingRecord {
 	double abv;
 	String package_date;
 	String notes;
-	
-	
+
 	/**
 	 * 
 	 */
 	public BrewingRecord() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	/**
 	 * @param number
@@ -56,25 +56,25 @@ public class BrewingRecord {
 	 */
 	public BrewingRecord(int number, String name, String brew_date, String grist, String hops, String water,
 			String yeast, String yeast_code, String pitching_temp, String ferment_temp, double og, double fg,
-			double abv, String package_date, String notes) {
+			String package_date, String notes) {
 		super();
-		this.number = number;
-		this.name = name;
-		this.brew_date = brew_date;
-		this.grist = grist;
-		this.hops = hops;
-		this.water = water;
-		this.yeast = yeast;
-		this.yeast_code = yeast_code;
-		this.pitching_temp = pitching_temp;
-		this.ferment_temp = ferment_temp;
-		this.og = og;
-		this.fg = fg;
-		this.abv = abv;
-		this.package_date = package_date;
-		this.notes = notes;
+		this.setNumber(number);
+		this.setName(name);
+		this.setBrew_date(brew_date);
+		this.setGrist(grist);
+		this.setHops(hops);
+		this.setWater(water);
+		this.setYeast(yeast);
+		this.setYeast_code(yeast_code);
+		this.setPitching_temp(pitching_temp);
+		this.setFerment_temp(ferment_temp);
+		this.setOg(og);
+		this.setFg(fg);
+		this.setAbv();
+		this.setPackage_date(package_date);
+		this.setNotes(notes);
 	}
-	
+
 	/**
 	 * 
 	 * @param uidpk
@@ -94,26 +94,26 @@ public class BrewingRecord {
 	 * @param package_date
 	 * @param notes
 	 */
-	public BrewingRecord(String uidpk, int number, String name, String brew_date, String grist, String hops, String water,
-			String yeast, String yeast_code, String pitching_temp, String ferment_temp, double og, double fg,
-			double abv, String package_date, String notes) {
+	public BrewingRecord(String uidpk, int number, String name, String brew_date, String grist, String hops,
+			String water, String yeast, String yeast_code, String pitching_temp, String ferment_temp, double og,
+			double fg, double abv, String package_date, String notes) {
 		super();
-		this.uidpk = uidpk;
-		this.number = number;
-		this.name = name;
-		this.brew_date = brew_date;
-		this.grist = grist;
-		this.hops = hops;
-		this.water = water;
-		this.yeast = yeast;
-		this.yeast_code = yeast_code;
-		this.pitching_temp = pitching_temp;
-		this.ferment_temp = ferment_temp;
-		this.og = og;
-		this.fg = fg;
-		this.abv = abv;
-		this.package_date = package_date;
-		this.notes = notes;
+		this.setUidpk(uidpk);
+		this.setNumber(number);
+		this.setName(name);
+		this.setBrew_date(brew_date);
+		this.setGrist(grist);
+		this.setHops(hops);
+		this.setWater(water);
+		this.setYeast(yeast);
+		this.setYeast_code(yeast_code);
+		this.setPitching_temp(pitching_temp);
+		this.setFerment_temp(ferment_temp);
+		this.setOg(og);
+		this.setFg(fg);
+		this.setAbv();
+		this.setPackage_date(package_date);
+		this.setNotes(notes);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class BrewingRecord {
 	public String getUidpk() {
 		return uidpk;
 	}
-	
+
 	/**
 	 * 
 	 * @param uidpk
@@ -131,14 +131,13 @@ public class BrewingRecord {
 	public void setUidpk(String uidpk) {
 		this.uidpk = uidpk;
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void newUidpk() {
 		this.uidpk = UUID.randomUUID().toString();
 	}
-	
 
 	/**
 	 * @return the number
@@ -147,14 +146,13 @@ public class BrewingRecord {
 		return number;
 	}
 
-
 	/**
-	 * @param number the number to set
+	 * @param number
+	 *            the number to set
 	 */
 	public void setNumber(int number) {
 		this.number = number;
 	}
-
 
 	/**
 	 * @return the name
@@ -163,14 +161,13 @@ public class BrewingRecord {
 		return name;
 	}
 
-
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	/**
 	 * @return the brew_date
@@ -179,14 +176,13 @@ public class BrewingRecord {
 		return brew_date;
 	}
 
-
 	/**
-	 * @param brew_date the brew_date to set
+	 * @param brew_date
+	 *            the brew_date to set
 	 */
 	public void setBrew_date(String brew_date) {
 		this.brew_date = brew_date;
 	}
-
 
 	/**
 	 * @return the grist
@@ -195,14 +191,13 @@ public class BrewingRecord {
 		return grist;
 	}
 
-
 	/**
-	 * @param grist the grist to set
+	 * @param grist
+	 *            the grist to set
 	 */
 	public void setGrist(String grist) {
 		this.grist = grist;
 	}
-
 
 	/**
 	 * @return the hops
@@ -211,14 +206,13 @@ public class BrewingRecord {
 		return hops;
 	}
 
-
 	/**
-	 * @param hops the hops to set
+	 * @param hops
+	 *            the hops to set
 	 */
 	public void setHops(String hops) {
 		this.hops = hops;
 	}
-
 
 	/**
 	 * @return the water
@@ -227,14 +221,13 @@ public class BrewingRecord {
 		return water;
 	}
 
-
 	/**
-	 * @param water the water to set
+	 * @param water
+	 *            the water to set
 	 */
 	public void setWater(String water) {
 		this.water = water;
 	}
-
 
 	/**
 	 * @return the yeast
@@ -243,14 +236,13 @@ public class BrewingRecord {
 		return yeast;
 	}
 
-
 	/**
-	 * @param yeast the yeast to set
+	 * @param yeast
+	 *            the yeast to set
 	 */
 	public void setYeast(String yeast) {
 		this.yeast = yeast;
 	}
-
 
 	/**
 	 * @return the yeast_code
@@ -259,14 +251,13 @@ public class BrewingRecord {
 		return yeast_code;
 	}
 
-
 	/**
-	 * @param yeast_code the yeast_code to set
+	 * @param yeast_code
+	 *            the yeast_code to set
 	 */
 	public void setYeast_code(String yeast_code) {
 		this.yeast_code = yeast_code;
 	}
-
 
 	/**
 	 * @return the pitching_temp
@@ -275,14 +266,13 @@ public class BrewingRecord {
 		return pitching_temp;
 	}
 
-
 	/**
-	 * @param pitching_temp the pitching_temp to set
+	 * @param pitching_temp
+	 *            the pitching_temp to set
 	 */
 	public void setPitching_temp(String pitching_temp) {
 		this.pitching_temp = pitching_temp;
 	}
-
 
 	/**
 	 * @return the ferment_temp
@@ -291,14 +281,13 @@ public class BrewingRecord {
 		return ferment_temp;
 	}
 
-
 	/**
-	 * @param ferment_temp the ferment_temp to set
+	 * @param ferment_temp
+	 *            the ferment_temp to set
 	 */
 	public void setFerment_temp(String ferment_temp) {
 		this.ferment_temp = ferment_temp;
 	}
-
 
 	/**
 	 * @return the og
@@ -307,14 +296,13 @@ public class BrewingRecord {
 		return og;
 	}
 
-
 	/**
-	 * @param og the og to set
+	 * @param og
+	 *            the og to set
 	 */
 	public void setOg(double og) {
 		this.og = og;
 	}
-
 
 	/**
 	 * @return the fg
@@ -323,14 +311,13 @@ public class BrewingRecord {
 		return fg;
 	}
 
-
 	/**
-	 * @param fg the fg to set
+	 * @param fg
+	 *            the fg to set
 	 */
 	public void setFg(double fg) {
 		this.fg = fg;
 	}
-
 
 	/**
 	 * @return the abv
@@ -339,14 +326,15 @@ public class BrewingRecord {
 		return abv;
 	}
 
-
 	/**
-	 * @param abv the abv to set
+	 * 
 	 */
-	public void setAbv(double abv) {
-		this.abv = abv;
+	public void setAbv() {
+		if (og != 0 & fg != 0) {
+			this.abv = new BigDecimal((og - fg) * 131.25).setScale(2, RoundingMode.HALF_UP).doubleValue();
+		} else
+			this.abv = 0;
 	}
-
 
 	/**
 	 * @return the package_date
@@ -355,14 +343,13 @@ public class BrewingRecord {
 		return package_date;
 	}
 
-
 	/**
-	 * @param package_date the package_date to set
+	 * @param package_date
+	 *            the package_date to set
 	 */
 	public void setPackage_date(String package_date) {
 		this.package_date = package_date;
 	}
-
 
 	/**
 	 * @return the notes
@@ -371,35 +358,34 @@ public class BrewingRecord {
 		return notes;
 	}
 
-
 	/**
-	 * @param notes the notes to set
+	 * @param notes
+	 *            the notes to set
 	 */
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 
-	public String dataToString() { 
-		return uidpk + "," + number + "," + name + "," + brew_date + "," + grist
-				+ "," + hops + "," + water + "," + yeast + "," + yeast_code
-				+ "," + pitching_temp + "," + ferment_temp + "," + og + "," + fg
-				+ "," + abv + "," + package_date + "," + notes;
+	public String dataToString() {
+		return uidpk + "," + number + "," + name + "," + brew_date + "," + grist + "," + hops + "," + water + ","
+				+ yeast + "," + yeast_code + "," + pitching_temp + "," + ferment_temp + "," + og + "," + fg + "," + abv
+				+ "," + package_date + "," + notes;
 	}
-	
-	public String dataWithQuotesToString() { 
-		return "'" + uidpk + "'," + number + ",'" + name + "','" + brew_date + "','" + grist
-				+ "','" + hops + "','" + water + "','" + yeast + "','" + yeast_code
-				+ "','" + pitching_temp + "','" + ferment_temp + "'," + og + "," + fg
-				+ "," + abv + ",'" + package_date + "','" + notes + "'";
+
+	public String dataWithQuotesToString() {
+		return "'" + uidpk + "'," + number + ",'" + name + "','" + brew_date + "','" + grist + "','" + hops + "','"
+				+ water + "','" + yeast + "','" + yeast_code + "','" + pitching_temp + "','" + ferment_temp + "'," + og
+				+ "," + fg + "," + abv + ",'" + package_date + "','" + notes + "'";
 	}
-	
+
 	public String fieldNamesToString() {
 		return "uidpk, number, name, brew_date, grist, hops, water, yeast, yeast_code, pitching_temp, "
 				+ "ferment_temp, og, fg, abv, package_date, notes";
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -417,7 +403,5 @@ public class BrewingRecord {
 				+ ", fieldNamesToString()=" + fieldNamesToString() + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
-	
-	
+
 }

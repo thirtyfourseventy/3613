@@ -53,7 +53,6 @@ public class Assignment1Servlet extends HttpServlet {
 		try {
 			double og = 0;
 			double fg = 0;
-			double abv = 0;
 
 			if (!request.getParameter("og").trim().equals("") && request.getParameter("og") != null) {
 				og = Double.parseDouble(request.getParameter("og").trim());
@@ -61,11 +60,11 @@ public class Assignment1Servlet extends HttpServlet {
 			if (!request.getParameter("fg").trim().equals("") && request.getParameter("fg") != null) {
 				fg = Double.parseDouble(request.getParameter("fg").trim());
 			}
-			if (!request.getParameter("abv").trim().equals("") && request.getParameter("abv") != null) {
-				abv = Double.parseDouble(request.getParameter("abv").trim());
-			}
 			if (request.getParameter("name").trim().length() == 0) {
 				throw new Exception("name is a required field");
+			}
+			if (request.getParameter("number").trim().length() == 0) {
+				throw new Exception("number is a required field");
 			}
 
 			BrewingRecord record = new BrewingRecord(Integer.parseInt(request.getParameter("number").trim()),
@@ -73,8 +72,7 @@ public class Assignment1Servlet extends HttpServlet {
 					request.getParameter("grist").trim(), request.getParameter("hops").trim(),
 					request.getParameter("water").trim(), request.getParameter("yeast").trim(),
 					request.getParameter("yeast_code").trim(), request.getParameter("pitching_temp").trim(),
-					request.getParameter("ferment_temp").trim(), og, fg, abv,
-					request.getParameter("package_date").trim(), request.getParameter("notes").trim());
+					request.getParameter("ferment_temp").trim(), og, fg, request.getParameter("package_date").trim(), request.getParameter("notes").trim());
 
 			if (action.contentEquals("Create")) {
 
