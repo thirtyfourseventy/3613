@@ -60,17 +60,17 @@ public class BrewingRecord {
 	 */
 	public BrewingRecord(String number, String name, String brew_date, String grist, String hops, String water,
 			String yeast, String yeast_code, String pitching_temp, String ferment_temp, String original_gravity,
-			String final_gravity, String package_date, String notes) throws Exception {
+			String final_gravity, String package_date, String notes) throws DataException {
 		super();
 		double og = 0;
 		double fg = 0;
 
 		try {
 			if (name.trim().length() == 0 || name == null) {
-				throw new Exception("name is a required field");
+				throw new DataException("name is a required field");
 			}
 			if (number.trim().length() == 0) {
-				throw new Exception("number is a required field");
+				throw new DataException("number is a required field");
 			}
 
 			if (!original_gravity.trim().equals("") && original_gravity != null) {
@@ -97,7 +97,7 @@ public class BrewingRecord {
 			this.setNotes(notes);
 			
 		} catch (NumberFormatException nfe) {
-			throw new Exception("Invalid user input, Enter ##.####");
+			throw new DataException("Invalid user input, Enter ##.####");
 		}
 	}
 

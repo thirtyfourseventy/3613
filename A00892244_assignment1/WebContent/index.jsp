@@ -9,6 +9,12 @@
 </head>
 <body>
 
+<%
+if (request.getHeader("Authorization") == null) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+}
+%>
+
 <header>
 <h1>Edward Lambke A00892244</h1>
 </header>
@@ -16,10 +22,15 @@
 <section>
 <h1>Assignment 1</h1>
 
-<h2>Click here to start </h2>
+<h2>Homebrewing Records Database </h2>
 
-<FORM METHOD="GET" ACTION="assignment1">
-<input type="submit" value="Start">
+<FORM METHOD="POST" ACTION="assignment1">
+<input type="hidden" name="access_type" value="read_write">
+<input type="submit" name="action" value="Login for read write access">
+</FORM>
+
+<FORM METHOD="POST" ACTION="assignment1">
+<input type="submit" name="action" value="Enter with read only access">
 </FORM>
 
 </section>

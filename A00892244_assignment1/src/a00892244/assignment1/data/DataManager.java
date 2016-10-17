@@ -132,7 +132,7 @@ public class DataManager {
 		}
 	}
 
-	public void addRecord(BrewingRecord record) throws Exception {
+	public void addRecord(BrewingRecord record) throws DataException {
 
 		System.out.println("adding " + record.dataToString());
 		try {
@@ -144,7 +144,7 @@ public class DataManager {
 
 			int rowsAffected = stmt.executeUpdate(strInsert);
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new DataException(e.getMessage());
 		}
 	}
 
@@ -173,7 +173,7 @@ public class DataManager {
 		System.out.println("\n");
 	}
 
-	public List<BrewingRecord> getAll() throws Exception {
+	public List<BrewingRecord> getAll() throws DataException {
 		ArrayList<BrewingRecord> allRecords = new ArrayList<BrewingRecord>();
 		String select = "SELECT * FROM " + tableName + " ORDER BY number DESC";
 
@@ -192,12 +192,12 @@ public class DataManager {
 				allRecords.add(record);
 			}
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new DataException(e.getMessage());
 		}
 		return allRecords;
 	}
 
-	public void deleteRecord(BrewingRecord record) throws Exception {
+	public void deleteRecord(BrewingRecord record) throws DataException {
 		String delete = "DELETE FROM " + tableName + " WHERE uidpk = '" + record.getUidpk() + "'";
 
 		System.out.println(delete);
@@ -207,11 +207,11 @@ public class DataManager {
 			stmt.executeUpdate(delete);
 
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new DataException(e.getMessage());
 		}
 	}
 
-	public void updateRecord(BrewingRecord record) throws Exception {
+	public void updateRecord(BrewingRecord record) throws DataException {
 
 		try {
 			String update = "UPDATE " + tableName + " SET " + " number = '" + record.getNumber() + "'," + " name = '"
@@ -230,7 +230,7 @@ public class DataManager {
 			stmt.executeUpdate(update);
 
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new DataException(e.getMessage());
 		}
 	}
 

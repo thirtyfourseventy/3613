@@ -163,8 +163,12 @@
 					<textarea name="notes" form="edit_form" maxlength="512" cols="64"
 						rows="8"><%out.print(record.getNotes());%></textarea>
 					<hr />
+					
+				<% if (request.getAttribute("access").toString().contains("write")) {%>	
 					<input type="submit" name="action" value="Update"> 
 					<input type="submit" name="action" value="Delete">
+				<% } %>
+				
 				</div>
 			</form>
 
@@ -174,6 +178,8 @@
 		<%
 			}
 		%>
+		
+		<% if (request.getAttribute("access").toString().contains("write")) {%>	
 
 		<h3>Add a new batch</h3>
 		<div>
@@ -255,7 +261,7 @@
 
 
 		</div>
-
+			<% } %>
 	</div>
 </body>
 
