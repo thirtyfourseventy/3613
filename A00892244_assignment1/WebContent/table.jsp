@@ -27,6 +27,7 @@
 	  } );
 */
   </script>
+  
 
 </head>
 <body>
@@ -73,7 +74,7 @@
 
 		<div>
 
-			<form id="edit_form" METHOD="POST" ACTION="assignment1">
+			<form id="edit_form_<%out.print(record.getUidpk());%>" METHOD="POST" ACTION="assignment1">
 				<input type="hidden" name="uidpk"
 					value="<%out.print(record.getUidpk());%>">
 
@@ -98,12 +99,12 @@
 				</div>
 				<div class="form_fields">
 					<h4>Grist</h4>
-					<textarea name="grist" form="edit_form" maxlength="512" cols="64"
+					<textarea name="grist" form="edit_form_<%out.print(record.getUidpk());%>" maxlength="512" cols="64"
 						rows="8"><%out.print(record.getGrist());%></textarea>
 				</div>
 				<div class="form_fields">
 					<h4>Hops</h4>
-					<textarea name="hops" form="edit_form" maxlength="512" cols="64"
+					<textarea name="hops" form="edit_form_<%out.print(record.getUidpk());%>" maxlength="512" cols="64"
 						rows="8"><%out.print(record.getHops());%></textarea>
 				</div>
 				<div class="form_fields">
@@ -137,13 +138,13 @@
 				<div class="form_fields">
 					<h4>Original Gravity</h4>
 					<input type="text" name="og" value="<%out.print(record.getOg());%>"
-						pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###" maxlength="6"
+						pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###, typically between 1.000 and 1.100" maxlength="6"
 						size="8">
 				</div>
 				<div class="form_fields">
 					<h4>Final Gravity</h4>
 					<input type="text" name="fg" value="<%out.print(record.getFg());%>"
-						pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###" maxlength="6"
+						pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###, typically between 1.000 and 1.100" maxlength="6"
 						size="8">
 				</div>
 				<div class="form_fields">
@@ -160,7 +161,7 @@
 				</div>
 				<div class="form_fields">
 					<h4>Notes</h4>
-					<textarea name="notes" form="edit_form" maxlength="512" cols="64"
+					<textarea name="notes" form="edit_form_<%out.print(record.getUidpk());%>" maxlength="512" cols="64"
 						rows="8"><%out.print(record.getNotes());%></textarea>
 					<hr />
 					
@@ -233,17 +234,17 @@
 				<div class="form_fields">
 					<h4>Original Gravity</h4>
 					<input type="text" name="og" pattern="[0,1](?:\.[0-9]{1,3})?"
-						title="#.###" maxlength="6" size="8">
+						title="#.###, typically between 1.000 and 1.100" maxlength="6" size="8">
 				</div>
 				<div class="form_fields">
 					<h4>Final Gravity</h4>
 					<input type="text" name="fg" pattern="[0,1](?:\.[0-9]{1,3})?"
-						title="#.###" maxlength="6" size="8">
+						title="#.###, typically between 1.000 and 1.100" maxlength="6" size="8">
 				</div>
 				<div class="form_fields">
 					<h4>% ABV</h4>
 					<input type="text" name="abv" pattern="[0-9]*(?:\.[0-9]{0,3})?"
-						title="##.###" maxlength="8" size="8" disabled placeholder="calculated">
+						title="#.###, typically between 1.000 and 1.100" maxlength="8" size="8" disabled placeholder="calculated">
 				</div>
 				<div class="form_fields">
 					<h4>Package Date</h4>
@@ -263,6 +264,10 @@
 		</div>
 			<% } %>
 	</div>
+	
+	<footer>
+	<h4>Edward Lambke A00892244 Assignment 1</h4>
+	</footer>
 </body>
 
 <script>
@@ -274,6 +279,18 @@ $("input[value=Delete]").click(function(event){
 
 </script>
 
+
+
+		
+<% if (!request.getAttribute("access").toString().contains("write")) {%>	
+<script>
+$("input").attr('disabled', 'disabled');
+$("textarea").attr('disabled', 'disabled');
+
+
+</script>
+
+<% } %>
 
 <%
 	if (request.getAttribute("error") != null) {

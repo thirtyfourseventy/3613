@@ -4,7 +4,7 @@
 package a00892244.assignment1.data;
 
 /**
- * @author elambke
+ * @author Edward Lambke A00892244
  *
  */
 public class DataException extends Exception {

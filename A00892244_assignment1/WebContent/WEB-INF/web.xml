@@ -29,6 +29,11 @@
 		<param-name>Table</param-name>
 		<param-value>a00892244_homebrew</param-value>
 	</context-param>
+	<context-param>
+		<param-name>admin</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	
 
 	<servlet>
 		<servlet-name>Assignment1Servlet</servlet-name>

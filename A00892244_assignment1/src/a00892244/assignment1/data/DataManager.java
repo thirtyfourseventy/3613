@@ -89,7 +89,7 @@ public class DataManager {
 			String strInsert = "INSERT INTO " + tableName + "(uidpk, number, name, brew_date, grist, hops, water, "
 					+ "yeast, yeast_code, pitching_temp, ferment_temp, og) "
 					+ "VALUES('edb41118-a77a-4529-89d6-1175a0578f0f', 117,'Old Course Ale','10/08/2016','8lb 10oz Simpsons GP, 4oz Simpsons C-120, 2oz TF Black', "
-					+ "'1oz 2016 Hallertau@FW','1tsp CaCl, .5tsp CaSO4','S-04','16908 239 0837 08 2017','12C','16C',1.042)";
+					+ "'0.5oz 8.4%AA First Gold@FW','1tsp CaCl, .5tsp CaSO4','S-04','16908 239 0837 08 2017','12C','16C',1.042)";
 
 			@SuppressWarnings("unused")
 			int rowsAffected = stmt.executeUpdate(strInsert);
@@ -119,8 +119,8 @@ public class DataManager {
 			strInsert = "INSERT INTO " + tableName + "(uidpk, number, name, brew_date, grist, hops, water, "
 					+ "yeast, yeast_code, pitching_temp, ferment_temp, og, fg, abv, package_date, notes) "
 					+ "VALUES('5ec92198-03b4-41bb-b5a9-91db230760cd',113,'Black Beer thing','07-15-2016','10lbs Weyermann Bohemian, 6oz Carafa sp 2',"
-					+ "'2015 Homegrown Hallertau: 1oz @ FW, 1oz in chill keg, Store bought Saaz 1oz 4.5%AA @ FW','',"
-					+ "'US-05','11224 022 1717 01 2017','','18C','1.048',1.012,4.825737265,'07-30-2016','')";
+					+ "'2015 Homegrown Hallertau: 1oz @ FW, 1oz in chill keg, Store bought Saaz 1oz 4.5%AA @ FW','pure vancouver tap water',"
+					+ "'US-05','11224 022 1717 01 2017','12C','18C','1.048',1.012,4.825737265,'07-30-2016','Dark')";
 			rowsAffected = stmt.executeUpdate(strInsert);
 
 			queryResults = stmt.executeQuery("SELECT * FROM " + tableName);

@@ -1,7 +1,6 @@
 package a00892244.assignment1;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import a00892244.assignment1.data.BrewingRecord;
@@ -47,8 +46,11 @@ public class Assignment1Servlet extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
 			dispatcher.forward(request, response);
 
-		} catch (DataException e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+		} catch (Exception e) {
+			request.setAttribute("error",
+					HttpServletResponse.SC_BAD_REQUEST + " Invalid user input. An error has occurred: " + e.getMessage());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 		}
 
 	}
@@ -63,46 +65,52 @@ public class Assignment1Servlet extends HttpServlet {
 			request.setAttribute("access", "read_only");
 		} else if (action.contains("Login")) {
 			if (request.getHeader("Authorization") == null) {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // Ie
-																			// 401
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				response.setHeader("WWW-Authenticate", "BASIC realm=\"assignment1\"");
 			} else {
 				String authorization = request.getHeader("Authorization");
 				System.out.println(authorization);
-
-				String userInfo = authorization.substring(6).trim();
 				Base64Decoder decoder = new Base64Decoder();
-				String nameAndPassword = new String(decoder.decodeBuffer(userInfo));
+				String nameAndPassword = new String(decoder.decodeBuffer(authorization.substring(6).trim()));
 				int index = nameAndPassword.indexOf(":");
 				String user = nameAndPassword.substring(0, index);
 				String password = nameAndPassword.substring(index + 1);
-				// String realPassword = passwords.getProperty(user);
-				String realPassword = "asdf";
+				String realPassword = getServletContext().getInitParameter(user);
 				if ((realPassword != null) && (realPassword.equals(password))) {
 					request.setAttribute("access", "read_write");
 				}
 			}
-
-			// else {
-			// request.setAttribute("access", "read_only");
-			// }
-
+		} else if (action.contains("Logout")) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.setHeader("WWW-Authenticate", "BASIC realm=\"assignment1\"");
 		}
-
 		// End Index Page Actions
 
 		// Table Page Actions
-		else {
+		else
 
+		{
+
+			request.setAttribute("access", "read_write");
 			try {
-				BrewingRecord record = new BrewingRecord(request.getParameter("number").trim(),
-						request.getParameter("name").trim(), request.getParameter("brew_date").trim(),
-						request.getParameter("grist").trim(), request.getParameter("hops").trim(),
-						request.getParameter("water").trim(), request.getParameter("yeast").trim(),
-						request.getParameter("yeast_code").trim(), request.getParameter("pitching_temp").trim(),
-						request.getParameter("ferment_temp").trim(), request.getParameter("og").trim(),
-						request.getParameter("fg").trim(), request.getParameter("package_date").trim(),
-						request.getParameter("notes").trim());
+
+				String number = request.getParameter("number").trim();
+				String name = request.getParameter("name").trim();
+				String brew_date = request.getParameter("brew_date").trim();
+				String water = request.getParameter("water").trim();
+				String yeast = request.getParameter("yeast").trim();
+				String yeast_code = request.getParameter("yeast_code").trim();
+				String pitching_temp = request.getParameter("pitching_temp").trim();
+				String ferment_temp = request.getParameter("ferment_temp").trim();
+				String og = request.getParameter("og").trim();
+				String fg = request.getParameter("fg").trim();
+				String package_date = request.getParameter("package_date").trim();
+				String grist = request.getParameter("grist").trim();
+				String hops = request.getParameter("hops").trim();
+				String notes = request.getParameter("notes").trim();
+
+				BrewingRecord record = new BrewingRecord(number, name, brew_date, grist, hops, water, yeast, yeast_code,
+						pitching_temp, ferment_temp, og, fg, package_date, notes);
 
 				if (action.contentEquals("Create")) {
 
@@ -123,9 +131,7 @@ public class Assignment1Servlet extends HttpServlet {
 					dataManager.updateRecord(record);
 				}
 
-				request.setAttribute("access", "read_write");
-
-			} catch (DataException e) {
+			} catch (Exception e) {
 				request.setAttribute("error",
 						HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
 			}
@@ -134,6 +140,7 @@ public class Assignment1Servlet extends HttpServlet {
 		// End Table Page Actions
 
 		response.setContentType("text/html");
+
 		doGet(request, response);
 
 	}

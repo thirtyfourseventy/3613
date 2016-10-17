@@ -41,6 +41,7 @@ public class BrewingRecord {
 
 	/**
 	 * Constructor for POST
+	 * 
 	 * @param number
 	 * @param name
 	 * @param brew_date
@@ -95,7 +96,7 @@ public class BrewingRecord {
 			this.setAbv();
 			this.setPackage_date(package_date);
 			this.setNotes(notes);
-			
+
 		} catch (NumberFormatException nfe) {
 			throw new DataException("Invalid user input, Enter ##.####");
 		}
@@ -103,6 +104,7 @@ public class BrewingRecord {
 
 	/**
 	 * Constructor for DB access
+	 * 
 	 * @param uidpk
 	 * @param number
 	 * @param name
@@ -411,7 +413,7 @@ public class BrewingRecord {
 
 	private String nullToEmpty(String string) {
 		if (string == null) {
-			return "";
+			return " ";
 		} else
 			return string.trim();
 	}
