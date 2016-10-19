@@ -47,6 +47,7 @@ public class Assignment1Servlet extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("error",
 					HttpServletResponse.SC_BAD_REQUEST + " Invalid user input. An error has occurred: " + e.getMessage());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
@@ -132,6 +133,7 @@ public class Assignment1Servlet extends HttpServlet {
 				}
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				request.setAttribute("error",
 						HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
 			}

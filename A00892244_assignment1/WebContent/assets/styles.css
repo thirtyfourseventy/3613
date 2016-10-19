@@ -21,7 +21,7 @@ h3.ui-state-active {
 
 header, section, footer {
 	box-sizing: border-box;
-	background-color: #e6e600;
+	background-color: #9e9e01;
 	text-align: center;
 	border-radius: 5px;
 	padding: 5px;
@@ -34,6 +34,7 @@ header, section, footer {
 
 Footer {
 	margin-top: 5px;
+	padding-bottom: 10px;
 }
 
 footer#disclaimer {
@@ -54,7 +55,7 @@ form {
 }
 
 a {
-	color: gray;
+	color: white;
 	text-decoration: none;
 }
 

@@ -267,6 +267,7 @@
 	
 	<footer>
 	<h4>Edward Lambke A00892244 Assignment 1</h4>
+	<a href="index.jsp">click here to return to homepage</a>
 	</footer>
 </body>
 

@@ -25,7 +25,7 @@
 </FORM>
 
 <FORM METHOD="POST" ACTION="assignment1">
-<input type="submit" name="action" value="Enter with read only access">
+<input type="submit" name="action" value="Enter with read only access"> <br /><em>usr/pw = admin/admin</em>
 </FORM>
 
 <FORM METHOD="POST" ACTION="assignment1">
@@ -61,11 +61,19 @@ The 15 columns and several large fields made a simple table view useless so I qu
 <ul>
 <li>There are some layout issues with the text fields in the expanded accordions.</li>
 <li>The date fields originally used the jqueryui datepicker but it didn't play well with the accordion and has been disabled.</li>
-<li>Reloading the table page can cause bad things to happen.</li>
+<li>Reloading the table page can cause bad things to happen. Please bounce the server if this occurs</li>
 <li>This has been tested on FF and Chrome.</li>
 </ul> 
 
-
+<h4>Backlog</h4>
+<ul>
+<li>fix instability around reloading and browser back button</li>
+<li>include jquery in war so it can run offline</li>
+<li>fix jquery date picker</li>
+<li>improve authentication</li>
+<li>populate db with more records. investigate populating db through SQL Server Management Studio</li>
+<li>more gold plating of the ui :) </li>
+</ul>
 
 
 </footer>
