@@ -4,8 +4,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import a00892244.assignment1.data.BrewingRecord;
-import a00892244.assignment1.data.DataException;
 import a00892244.assignment1.data.DataManager;
+import a00892244.assignment1.data.InputFilter;
 import a00892244.tribble.util.Base64Decoder;
 
 import java.io.*;
@@ -95,34 +95,32 @@ public class Assignment1Servlet extends HttpServlet {
 			request.setAttribute("access", "read_write");
 			try {
 
-				String number = request.getParameter("number").trim();
-				String name = request.getParameter("name").trim();
-				String brew_date = request.getParameter("brew_date").trim();
-				String water = request.getParameter("water").trim();
-				String yeast = request.getParameter("yeast").trim();
-				String yeast_code = request.getParameter("yeast_code").trim();
-				String pitching_temp = request.getParameter("pitching_temp").trim();
-				String ferment_temp = request.getParameter("ferment_temp").trim();
-				String og = request.getParameter("og").trim();
-				String fg = request.getParameter("fg").trim();
-				String package_date = request.getParameter("package_date").trim();
-				String grist = request.getParameter("grist").trim();
-				String hops = request.getParameter("hops").trim();
-				String notes = request.getParameter("notes").trim();
+				String number = InputFilter.filter(request.getParameter("number").trim());
+				String name = InputFilter.filter(request.getParameter("name").trim());
+				String brew_date = InputFilter.filter(request.getParameter("brew_date").trim());
+				String water = InputFilter.filter(request.getParameter("water").trim());
+				String yeast = InputFilter.filter(request.getParameter("yeast").trim());
+				String yeast_code = InputFilter.filter(request.getParameter("yeast_code").trim());
+				String pitching_temp = InputFilter.filter(request.getParameter("pitching_temp").trim());
+				String ferment_temp = InputFilter.filter(request.getParameter("ferment_temp").trim());
+				String og = InputFilter.filter(request.getParameter("og").trim());
+				String fg = InputFilter.filter(request.getParameter("fg").trim());
+				String package_date = InputFilter.filter(request.getParameter("package_date").trim());
+				String grist = InputFilter.filter(request.getParameter("grist").trim());
+				String hops = InputFilter.filter(request.getParameter("hops").trim());
+				String notes = InputFilter.filter(request.getParameter("notes").trim());
 
 				BrewingRecord record = new BrewingRecord(number, name, brew_date, grist, hops, water, yeast, yeast_code,
 						pitching_temp, ferment_temp, og, fg, package_date, notes);
 
 				if (action.contentEquals("Create")) {
-
 					record.newUidpk();
 					dataManager.addRecord(record);
 
 				}
 
 				if (action.contains("Delete")) {
-
-					record.setUidpk(request.getParameter("uidpk"));
+					record.setUidpk(InputFilter.filter(request.getParameter("uidpk")));
 					dataManager.deleteRecord(record);
 
 				}

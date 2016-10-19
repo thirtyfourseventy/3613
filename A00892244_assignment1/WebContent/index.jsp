@@ -21,11 +21,11 @@
 
 <FORM METHOD="POST" ACTION="assignment1">
 <input type="hidden" name="access_type" value="read_write">
-<input type="submit" name="action" value="Login for read write access">
+<input type="submit" name="action" value="Login for read write access"> <br /><em>usr/pw = admin/admin</em>
 </FORM>
 
 <FORM METHOD="POST" ACTION="assignment1">
-<input type="submit" name="action" value="Enter with read only access"> <br /><em>usr/pw = admin/admin</em>
+<input type="submit" name="action" value="Enter with read only access"> 
 </FORM>
 
 <FORM METHOD="POST" ACTION="assignment1">
