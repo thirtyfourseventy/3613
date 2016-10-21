@@ -68,7 +68,6 @@ The 15 columns and several large fields made a simple table view useless so I qu
 <h4>Backlog</h4>
 <ul>
 <li>fix instability around reloading and browser back button</li>
-<li>include jquery in war so it can run offline</li>
 <li>fix jquery date picker</li>
 <li>improve authentication</li>
 <li>populate db with more records. investigate populating db through SQL Server Management Studio</li>
