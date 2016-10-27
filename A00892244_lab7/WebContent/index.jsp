@@ -12,13 +12,27 @@
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 
-
+<%
+String query = "";
+Cookie[] cookies = request.getCookies();
+if (cookies == null) {
+  out.println("<TR><TH COLSPAN=2>No cookies");
+} else {
+  Cookie cookie;
+  for(int i=0; i<cookies.length; i++) {
+    cookie = cookies[i];
+    if (cookie.getName().equals("query")) {
+   		query = cookie.getValue().toString();
+  	}
+  }
+}
+%>
 <header>A00892244 Lab7</header>
 
 <section>
 <form METHOD="POST" ACTION="lab07">
 Enter db query:
-	<input type="text" name="query" value="select * from a00892244_homebrew">
+	<input type="text" name="query" value="<%=java.net.URLDecoder.decode(query, "UTF-8") %>">
 	<input type="submit" value="Submit"> 
 </form>
 </section>
@@ -37,7 +51,7 @@ Enter db query:
 <tr><th></th><th>Data Type</th><th>Column Width</th><th>Searchable?</th><th>Nullable?</th></tr>
 
 <%
-for (int i=1; i < metadata.getColumnCount(); i++) {
+for (int i=1; i <= metadata.getColumnCount(); i++) {
 	out.print("<tr><td>" + metadata.getColumnName(i) + "</td>");
 	out.print("<td>" + metadata.getColumnTypeName(i) + "</td>");
 	out.print("<td>" + metadata.getColumnDisplaySize(i) + "</td>");
@@ -57,14 +71,14 @@ for (int i=1; i < metadata.getColumnCount(); i++) {
 <%
 
 	out.print("<tr>");
-	for (int i=1; i < metadata.getColumnCount(); i++) {
+	for (int i=1; i <= metadata.getColumnCount(); i++) {
 		out.print("<th>" + metadata.getColumnName(i) + "</th>");
 	}
 	out.print("</tr>");		
 	
 	while(results.next()){
 		out.print("<tr>");
-		for (int i=1; i < metadata.getColumnCount(); i++) {
+		for (int i=1; i <= metadata.getColumnCount(); i++) {
 			out.print("<td>" + results.getObject(metadata.getColumnName(i)).toString() + "</td>");
 		}		
 		out.print("</tr>");

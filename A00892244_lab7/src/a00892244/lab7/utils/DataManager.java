@@ -1,7 +1,7 @@
 /**
  * 
  */
-package a00892244.lab7.data;
+package a00892244.lab7.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,18 +48,13 @@ public class DataManager {
 	}
 	
 	public ResultSet executeQuery(String query) throws SQLException  {
+		
+			System.out.println("executing query: " + query);
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			queryResults = stmt.executeQuery(query);
 			
 			return queryResults;
 	}
 	
-	public void test() throws SQLException {
-		ResultSet results = executeQuery("asdfh");
-		
-		results.getMetaData();
-		results.getMetaData().getColumnName(1);
-		
-	}
 
 }
