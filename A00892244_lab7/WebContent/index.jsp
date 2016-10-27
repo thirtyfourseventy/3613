@@ -32,6 +32,8 @@ Enter db query:
 %>
 <section>
 <table>
+<h1><%=session.getAttribute("query") %></h1>
+
 <tr><th></th><th>Data Type</th><th>Column Width</th><th>Searchable?</th><th>Nullable?</th></tr>
 
 <%

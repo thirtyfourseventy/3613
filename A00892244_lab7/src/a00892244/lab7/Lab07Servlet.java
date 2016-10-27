@@ -38,12 +38,13 @@ public class Lab07Servlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			
+			HttpSession session = request.getSession();
 			ResultSet results = dataManager.executeQuery(request.getParameter("query"));
 			
 			request.setAttribute("results", results);
 			
 			response.setContentType("text/html");
+			session.setAttribute("query", request.getParameter("query"));
 			
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/index.jsp");
