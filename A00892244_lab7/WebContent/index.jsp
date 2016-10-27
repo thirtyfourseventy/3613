@@ -37,61 +37,6 @@ Enter db query:
 </form>
 </section>
 
-<% if(request.getAttribute("results") != null) { 
-	try {
-		ResultSet results = (ResultSet)request.getAttribute("results");
-		ResultSetMetaData metadata = results.getMetaData();
-//		out.print("Fuck: " + metadata.getColumnCount() + " " + metadata.getColumnName(1));
-
-%>
-<section>
-<table>
-<h1><%=session.getAttribute("query") %></h1>
-
-<tr><th></th><th>Data Type</th><th>Column Width</th><th>Searchable?</th><th>Nullable?</th></tr>
-
-<%
-for (int i=1; i <= metadata.getColumnCount(); i++) {
-	out.print("<tr><td>" + metadata.getColumnName(i) + "</td>");
-	out.print("<td>" + metadata.getColumnTypeName(i) + "</td>");
-	out.print("<td>" + metadata.getColumnDisplaySize(i) + "</td>");
-	out.print("<td>" + metadata.isSearchable(i) + "</td>");
-	out.print("<td>" + metadata.isNullable(i) + "</td></tr>");
-}
-
-%>
-
-</table>
-</section>
-
-
-<section>
-<h3>Results</h3>
-<table>
-<%
-
-	out.print("<tr>");
-	for (int i=1; i <= metadata.getColumnCount(); i++) {
-		out.print("<th>" + metadata.getColumnName(i) + "</th>");
-	}
-	out.print("</tr>");		
-	
-	while(results.next()){
-		out.print("<tr>");
-		for (int i=1; i <= metadata.getColumnCount(); i++) {
-			out.print("<td>" + results.getObject(metadata.getColumnName(i)).toString() + "</td>");
-		}		
-		out.print("</tr>");
-	}
-	
-
-} catch (SQLException ex) {
-	ex.printStackTrace();
-}
-%>
-</table>
-</section>
-<% } %>
 
 </body>
 </html>

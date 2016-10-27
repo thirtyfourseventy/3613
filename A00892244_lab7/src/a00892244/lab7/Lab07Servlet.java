@@ -57,7 +57,7 @@ public class Lab07Servlet extends HttpServlet {
 			cookie.setMaxAge(3600);
 			response.addCookie(cookie);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/results.jsp");
 			dispatcher.forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
