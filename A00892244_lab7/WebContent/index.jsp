@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>A00892244 Lab7</title>
+<title>Edward Lambke A00892244 Lab7</title>
 <link rel='stylesheet' type='text/css' href='assets/styles.css'>
 </head>
 <body>
@@ -15,9 +15,7 @@
 <%
 String query = "";
 Cookie[] cookies = request.getCookies();
-if (cookies == null) {
-  out.println("<TR><TH COLSPAN=2>No cookies");
-} else {
+if (cookies != null) { 
   Cookie cookie;
   for(int i=0; i<cookies.length; i++) {
     cookie = cookies[i];
@@ -27,16 +25,25 @@ if (cookies == null) {
   }
 }
 %>
-<header>A00892244 Lab7</header>
+<header><h1>Edward Lambke A00892244 Lab7</h1></header>
 
 <section>
 <form METHOD="POST" ACTION="lab07">
 Enter db query:
-	<input type="text" name="query" value="<%=java.net.URLDecoder.decode(query, "UTF-8") %>">
+	<input type="text" name="query" size=64 value="<%=java.net.URLDecoder.decode(query, "UTF-8") %> ">
 	<input type="submit" value="Submit"> 
 </form>
 </section>
 
+<%
+	if (request.getAttribute("error") != null) {
+%>
+<script type="text/javascript">
+alert("<%out.print(request.getAttribute("error"));%>");
+</script>
+<%
+	}
+%>
 
 </body>
 </html>

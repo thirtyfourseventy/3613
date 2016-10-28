@@ -6,7 +6,6 @@ package a00892244.lab7;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -14,7 +13,7 @@ import javax.servlet.http.*;
 import a00892244.lab7.utils.DataManager;
 
 /**
- * @author elambke
+ * @author Edward Lambke A00892244
  *
  */
 public class Lab07Servlet extends HttpServlet {
@@ -59,9 +58,14 @@ public class Lab07Servlet extends HttpServlet {
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/results.jsp");
 			dispatcher.forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("error",
+					HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
+			response.setContentType("text/html");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 		}
 
 	}

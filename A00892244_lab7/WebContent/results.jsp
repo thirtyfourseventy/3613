@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>A00892244 Lab7</title>
+<title>Edward Lambke A00892244 Lab7</title>
 <link rel='stylesheet' type='text/css' href='assets/styles.css'>
 </head>
 <body>
@@ -12,21 +12,7 @@
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 
-<%
-String query = "";
-Cookie[] cookies = request.getCookies();
-if (cookies == null) {
-  out.println("<TR><TH COLSPAN=2>No cookies");
-} else {
-  Cookie cookie;
-  for(int i=0; i<cookies.length; i++) {
-    cookie = cookies[i];
-    if (cookie.getName().equals("query")) {
-   		query = cookie.getValue().toString();
-  	}
-  }
-}
-%>
+
 <header><h1><%=session.getAttribute("query") %></h1></header>
 
 <% if(request.getAttribute("results") != null) { 
@@ -67,12 +53,14 @@ for (int i=1; i <= metadata.getColumnCount(); i++) {
 	}
 	out.print("</tr>");		
 	
+	int y=1;
 	while(results.next()){
 		out.print("<tr>");
 		for (int i=1; i <= metadata.getColumnCount(); i++) {
 			out.print("<td>" + results.getObject(metadata.getColumnName(i)).toString() + "</td>");
 		}		
 		out.print("</tr>");
+		y++;
 	}
 	
 
