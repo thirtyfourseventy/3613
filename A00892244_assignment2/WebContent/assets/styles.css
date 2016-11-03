@@ -1,0 +1,84 @@
+/**
+ * Edward Lambke A00892244
+ */
+body {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: white;
+	min-width: 600px;
+	max-width: 900px;
+	margin: auto;
+}
+
+#accordion {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+h3.ui-state-active {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: white;
+	background-color: #9e9e01;
+	border-color: #BDBD02;
+}
+
+header, section, footer {
+	box-sizing: border-box;
+	background-color: #9e9e01;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	width: 100%;
+}
+
+Footer {
+	margin-top: 5px;
+	padding-bottom: 10px;
+}
+
+footer#disclaimer {
+	text-align: left;
+}
+
+header {
+	text-transform: uppercase;
+}
+
+form {
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 20px;
+	padding: 10px;
+	width: 95%;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a.selected {
+	text-decoration: underline;
+}
+
+table { 
+	display: none; 
+}
+tr {
+
+}
+td, th {
+	margin: 5px;
+	border: 2px none black;
+}
+
+.form_fields {
+	float: left;
+	margin: 10px;
+}
+
+.instructions {
+	text-align: left;
+}

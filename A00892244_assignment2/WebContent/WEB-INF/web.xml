@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>A00892244_assignment2</display-name>
+
+	<context-param>
+		<param-name>Driver</param-name>
+		<param-value>com.microsoft.sqlserver.jdbc.SQLServerDriver</param-value>
+	</context-param>
+	<context-param>
+		<param-name>URL</param-name>
+		<param-value>jdbc:sqlserver://Beangrinder.bcit.ca</param-value>
+	</context-param>
+	<context-param>
+		<param-name>User</param-name>
+		<param-value>javastudent</param-value>
+	</context-param>
+	<context-param>
+		<param-name>Password</param-name>
+		<param-value>compjava</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DatabaseName</param-name>
+		<param-value>jspweb</param-value>
+	</context-param>
+	<context-param>
+		<param-name>Table</param-name>
+		<param-value>a00892244_homebrew</param-value>
+	</context-param>
+	<context-param>
+		<param-name>admin</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	
+
+	<servlet>
+		<servlet-name>Assignment2Servlet</servlet-name>
+		<servlet-class>a00892244.assignment2.Assignment2Servlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Assignment2Servlet</servlet-name>
+		<url-pattern>/assignment2</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
