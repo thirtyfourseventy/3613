@@ -40,8 +40,9 @@ import javax.swing.JTextField;
 
 public class Decoder {
 
-	/**
-	 * 
+	/**s
+	 * @author Edward Lambke A00892244
+	 *
 	 */
 
 	// salt for password-based encryption-decryption algorithm
@@ -114,26 +115,6 @@ public class Decoder {
 			exception.printStackTrace();
 			System.exit(1);
 		}
-
-		// read and decrypt contents from file
-		// try {
-		// File file = new File(fileName);
-		// FileInputStream fileInputStream = new FileInputStream(file);
-		//
-		// CipherInputStream in = new CipherInputStream(fileInputStream,
-		// cipher);
-		//
-		// // read bytes from stream.
-		// byte contents = (byte) in.read();
-		//
-		// @SuppressWarnings("unused")
-		// int count = 0;
-		// while (contents != -1) {
-		// count++;
-		// fileBytes.add(new Byte(contents));
-		// contents = (byte) in.read();
-		// }
-		// in.close();
 
 		FileInputStream inputfile = null;
 		byte[] outputArray = null;

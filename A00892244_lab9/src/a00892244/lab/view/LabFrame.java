@@ -46,29 +46,22 @@ import a00892244.lab.loadclass.AClassLoader;
 public class LabFrame extends JFrame {
 
 	/**
-	 * 
+	 * @author Edward Lambke A00892244
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private JLabel label1 = new JLabel("Class Name", SwingConstants.RIGHT);
 	private JLabel label2 = new JLabel("Decryption Key:", SwingConstants.RIGHT);
 	private JTextField nameField = new JTextField(30);
-	private JTextField keyField = new JTextField(4);
+	private JTextField keyField =  new JPasswordField(30);
 	private JButton load = new JButton("Load the Program");
-
-	// user input components.
-	private JTextField passwordTextField;
-
-	private JTextField fileNameTextField;
-
-	private JEditorPane fileContentsEditorPane;
 
 	// frame constructor
 	public LabFrame() {
 
 		{
-			Decoder decoder = new Decoder();
-			setTitle("ClassLoaderTest");
+			setTitle("A00892244 Lab09");
 			Container c = getContentPane();
 
 			JPanel labelPanel = new JPanel();
@@ -83,7 +76,7 @@ public class LabFrame extends JFrame {
 
 			load.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					runClass(nameField.getText().replace(".caesar", ""), decoder.readFromFileAndDecrypt(keyField.getText(), nameField.getText()));
+					runClass(nameField.getText());
 				}
 			});
 
@@ -94,10 +87,12 @@ public class LabFrame extends JFrame {
 
 	}
 
-	public void runClass(String className, byte[] bs) {
+	public void runClass(String fileName) {
 		try {
+			Decoder decoder = new Decoder();
+			byte[] bs = decoder.readFromFileAndDecrypt(keyField.getText(), fileName);
 			AClassLoader classLoader = new AClassLoader();
-			Class<?> c = classLoader.loadClassFromByteString(className, bs);
+			Class<?> c = classLoader.loadClassFromByteString(fileName.replace(".caesar", ""), bs);
 			if (c == null)
 				throw new ClassNotFoundException("name");
 

@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import a00892244.lab.view.LabFrame;
 
 /**
- * @author elambke
+ * @author Edward Lambke A00892244
  *
  */
 public class Lab09 {

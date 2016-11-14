@@ -22,32 +22,12 @@ import javax.swing.SwingConstants;
 import a00892244.lab.decode.Decoder;
 
 /**
-   @version 1.20 2001-08-23
-   @author Cay Horstmann modified by Paul Mills
-*/
-
-
-
-/**
-   This program demonstrates a custom class loader that decrypts
-   class files.
-
-   This frame contains two text fields for the name of the class
-   to load and the decryption key.
-*/
-
-   
-
-/**
-   This class loader loads encrypted class files.
-*/
+ * @author Edward Lambke A00892244
+ *
+ */
 public class AClassLoader extends ClassLoader
 {
 
-	/**
-		Constructs a crypto class loader.
-		@param k the decryption key
-	*/
 	public AClassLoader() {
 		 
 	}
