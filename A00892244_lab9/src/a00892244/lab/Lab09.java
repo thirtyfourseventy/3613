@@ -1,14 +1,14 @@
 /**
  * 
  */
-package a0012346.lab;
+package a00892244.lab;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import a00123456.lab.view.LabFrame;
+import a00892244.lab.view.LabFrame;
 
 /**
  * @author elambke

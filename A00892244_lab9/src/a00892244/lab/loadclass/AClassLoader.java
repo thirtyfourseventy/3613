@@ -1,4 +1,4 @@
-package a00123456.lab.loadclass;
+package a00892244.lab.loadclass;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import a00123456.lab.decode.Decoder;
+import a00892244.lab.decode.Decoder;
 
 /**
    @version 1.20 2001-08-23
@@ -52,28 +52,10 @@ public class AClassLoader extends ClassLoader
 		 
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected Class<?> findClass(String name)
-		throws ClassNotFoundException
-	{
-		byte[] classBytes = null;
-		try {
-			classBytes = loadClassBytes(name);
-		} catch (IOException exception) {
-			throw new ClassNotFoundException(name);
-		}
-
-		Class cl = defineClass(name, classBytes, 0, classBytes.length);
-		if (cl == null)
-            throw new ClassNotFoundException(name);
-		return cl;
-	}
 	
-	public Class<?> loadClassFromString(String classString) throws ClassNotFoundException {
-		byte[] classBytes = classString.getBytes();
-
+	public Class<?> loadClassFromByteString(String className, byte[] classBytes) throws ClassNotFoundException {
+		String classString = new String(classBytes);
 		System.out.println(classString);
-		String className = classString.split("public class ")[1].split(" ")[0];
 		
 		System.out.println("NAME: " + className);
 		System.out.println(classString);
@@ -86,30 +68,5 @@ public class AClassLoader extends ClassLoader
 
 	}
 
-	/**
-		Loads and decrypt the class file bytes.
-		@param name the class name
-		@return an array with the class file bytes
-	*/
-	private byte[] loadClassBytes(String name)
-		throws IOException
-	{
-		String cname = name.replace('.', '/') + ".class";
-		FileInputStream in = null;
-		try {
-			in = new FileInputStream(cname);
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int ch;
-			while ((ch = in.read()) != -1) {
-				byte b = (byte)(ch);
-				buffer.write(b);
-			}
-			in.close();
-			return buffer.toByteArray();
 
-		} finally{
-			if (in != null)
-				in.close();
-		}
-	}
 }

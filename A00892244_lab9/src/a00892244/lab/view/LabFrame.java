@@ -1,4 +1,4 @@
-package a00123456.lab.view;
+package a00892244.lab.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -40,8 +40,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import a00123456.lab.decode.Decoder;
-import a00123456.lab.loadclass.AClassLoader;
+import a00892244.lab.decode.Decoder;
+import a00892244.lab.loadclass.AClassLoader;
 
 public class LabFrame extends JFrame {
 
@@ -50,18 +50,11 @@ public class LabFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// salt for password-based encryption-decryption algorithm
-	private static final byte[] salt = { (byte) 0xf5, (byte) 0x33, (byte) 0x01, (byte) 0x2a, (byte) 0xb2, (byte) 0xcc,
-			(byte) 0xe4, (byte) 0x7f };
-
 	private JLabel label1 = new JLabel("Class Name", SwingConstants.RIGHT);
 	private JLabel label2 = new JLabel("Decryption Key:", SwingConstants.RIGHT);
 	private JTextField nameField = new JTextField(30);
 	private JTextField keyField = new JTextField(4);
 	private JButton load = new JButton("Load the Program");
-
-	// iteration count
-	private int iterationCount = 100;
 
 	// user input components.
 	private JTextField passwordTextField;
@@ -74,7 +67,7 @@ public class LabFrame extends JFrame {
 	public LabFrame() {
 
 		{
-			Decoder encipherDecipher = new Decoder();
+			Decoder decoder = new Decoder();
 			setTitle("ClassLoaderTest");
 			Container c = getContentPane();
 
@@ -90,7 +83,7 @@ public class LabFrame extends JFrame {
 
 			load.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					runClassString(encipherDecipher.readFromFileAndDecrypt(keyField.getText(), nameField.getText()));
+					runClass(nameField.getText().replace(".caesar", ""), decoder.readFromFileAndDecrypt(keyField.getText(), nameField.getText()));
 				}
 			});
 
@@ -101,10 +94,10 @@ public class LabFrame extends JFrame {
 
 	}
 
-	public void runClassString(String classString) {
+	public void runClass(String className, byte[] bs) {
 		try {
 			AClassLoader classLoader = new AClassLoader();
-			Class<?> c = classLoader.loadClassFromString(classString);
+			Class<?> c = classLoader.loadClassFromByteString(className, bs);
 			if (c == null)
 				throw new ClassNotFoundException("name");
 
