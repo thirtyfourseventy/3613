@@ -15,6 +15,31 @@
 <script src="assets/jquery.min.js"></script>
 <script src="assets/jquery-ui.min.js"></script>
 
+<%
+Locale locale = Locale.ENGLISH;
+
+String language = "";
+Cookie[] cookies = request.getCookies();
+if (cookies != null) { 
+  Cookie cookie;
+  for(int i=0; i<cookies.length; i++) {
+    cookie = cookies[i];
+    if (cookie.getName().equals("language")) {
+    	language = cookie.getValue().toString();
+  	}
+  }
+  if (language.equals("fr")) {
+	  locale = locale.FRENCH;
+  }
+  if (language.equals("lc")) {
+	  locale = new Locale.Builder().setLanguage("lc").build();
+  }
+}
+
+ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.localization.TableResource", locale);
+
+%>
+
 <script>
   $( function() {
 	  $("#accordion").accordion({ header: "h3", collapsible: true, active: false } );
@@ -33,7 +58,14 @@
 <body>
 
 	<header>
-		<h1>Homebrewing Records</h1>
+		<h1><%=resourceBundle.getString("Project_Name")%></h1>
+		<a class="lang" id="en" href="assignment2">English</a>  <a class="lang" id="fr" href="assignment2">French</a> <a class="lang" id="lc" href="assignment2">lolcat</a>
+		<script>
+			$(".lang").click(function () {
+				document.cookie = "language=" + $(this).attr("id");
+			});
+		
+		</script>
 	</header>
 
 
@@ -70,7 +102,7 @@
 
 		<div>
 
-			<form id="edit_form_<%=record.getUidpk() %>" METHOD="POST" ACTION="assignment1">
+			<form id="edit_form_<%=record.getUidpk() %>" METHOD="POST" ACTION="assignment2">
 				<input type="hidden" name="uidpk"
 					value="<%=record.getUidpk() %>">
 
@@ -161,10 +193,9 @@
 						rows="8"><%=record.getNotes() %></textarea>
 					<hr />
 					
-				<% if (request.getAttribute("access").toString().contains("write")) {%>	
-					<input type="submit" name="action" value="Update"> 
-					<input type="submit" name="action" value="Delete">
-				<% } %>
+					<button type="submit" name="action" value="Update"><%=resourceBundle.getString("Update_Button")%></button>
+					<button type="submit" name="action" value="Delete"><%=resourceBundle.getString("Delete_Button")%></button>
+
 				
 				</div>
 			</form>
@@ -176,12 +207,11 @@
 			}
 		%>
 		
-		<% if (request.getAttribute("access").toString().contains("write")) {%>	
 
-		<h3>Add a new batch</h3>
+		<h3><%=resourceBundle.getString("Add_New_Batch_Title")%></h3>
 		<div>
 
-			<form id="new_batch_form" METHOD="POST" ACTION="assignment1">
+			<form id="new_batch_form" METHOD="POST" ACTION="assignment2">
 				<div class="form_fields">
 					<h4>Batch #</h4>
 					<input type="text" name="number" pattern="[0-9]{1,4}" title="####"
@@ -252,25 +282,24 @@
 					<textarea name="notes" form="new_batch_form" maxlength="512"
 						cols="64" rows="8"></textarea>
 					<hr />
-					<input type="submit" name="action" value="Create">
+					<button type="submit" name="action" value="Create"><%=resourceBundle.getString("Project_Name")%></button>
 				</div>
 			</form>
 
 
 		</div>
-			<% } %>
 	</div>
 	
 	<footer>
-	<h4>Edward Lambke A00892244 Assignment 1</h4>
-	<a href="index.jsp">Click here to return to homepage</a>
+	<h4>Edward Lambke A00892244 <%=resourceBundle.getString("Assignment_Title")%></h4>
+	<a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
 	</footer>
 </body>
 
 <script>
 	
-$("input[value=Delete]").click(function(event){
-	if(!confirm('Are you sure you want to delete?'))
+$("button[value=Delete]").click(function(event){
+	if(!confirm('<%=resourceBundle.getString("Delete_Confirmation")%>'))
 		event.preventDefault(); 
 }); 
 
@@ -278,16 +307,7 @@ $("input[value=Delete]").click(function(event){
 
 
 
-		
-<% if (!request.getAttribute("access").toString().contains("write")) {%>	
-<script>
-$("input").attr('disabled', 'disabled');
-$("textarea").attr('disabled', 'disabled'); 
 
-
-</script>
-
-<% } %>
 
 <%
 	if (request.getAttribute("error") != null) {

@@ -30,6 +30,9 @@ if (cookies != null) {
   if (language.equals("fr")) {
 	  locale = locale.FRENCH;
   }
+  if (language.equals("lc")) {
+	  locale = new Locale.Builder().setLanguage("lc").build();
+  }
 }
 
 ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.localization.IndexResource", locale);
@@ -37,7 +40,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 
 <header>
 <h1>Edward Lambke A00892244</h1>
-<a class="lang" id="en" href="index.jsp">English</a>  <a class="lang" id="fr" href="index.jsp">French</a>
+<a class="lang" id="en" href="index.jsp">English</a>  <a class="lang" id="fr" href="index.jsp">French</a> <a class="lang" id="lc" href="index.jsp">lolcat</a>
 <script>
 $(".lang").click(function () {
 	document.cookie = "language=" + $(this).attr("id");
@@ -51,18 +54,8 @@ $(".lang").click(function () {
 
 <h2><%=resourceBundle.getString("Project_Name")%></h2>
 
-<FORM METHOD="POST" ACTION="assignment1">
-<input type="hidden" name="access_type" value="read_write">
-<input type="submit" name="action" value="<%=resourceBundle.getString("Read_Write_Access")%>"> <br /><em>usr/pw = admin/admin</em>
-</FORM>
+<a href="assignment2"><%=resourceBundle.getString("Read_Write_Access")%></a>
 
-<FORM METHOD="POST" ACTION="assignment1">
-<input type="submit" name="action" value="<%=resourceBundle.getString("Read_Only_Access")%>"> 
-</FORM>
-
-<FORM METHOD="POST" ACTION="assignment1">
-<input type="submit" name="action" value="<%=resourceBundle.getString("Logout")%>">
-</FORM>
 </section>
 
 <section class="instructions">
