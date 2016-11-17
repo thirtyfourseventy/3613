@@ -44,6 +44,24 @@
 		<servlet-name>Assignment2Servlet</servlet-name>
 		<url-pattern>/assignment2</url-pattern>
 	</servlet-mapping>
+	
+	 <!-- Register the name "Reporter" for ReportFilter. -->
+  <filter>
+    <filter-name>Login</filter-name>
+    <filter-class>
+      a00892244.assignment2.filters.LoginFilter
+    </filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>Login</filter-name>
+    <url-pattern>/assignment2</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>Login</filter-name>
+    <servlet-name>Assignment2Servlet</servlet-name>
+  </filter-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

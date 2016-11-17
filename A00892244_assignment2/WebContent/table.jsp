@@ -66,6 +66,9 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 			});
 		
 		</script>
+		
+		<form id="logoutform" METHOD="POST" ACTION="assignment2">
+		<button type="submit" name="action" value="logout">logout</button>
 	</header>
 
 
@@ -293,7 +296,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 	<footer>
 	<h4>Edward Lambke A00892244 <%=resourceBundle.getString("Assignment_Title")%></h4>
 	<a href="summary.jsp"><%=resourceBundle.getString("Summary_Page")%></a>
-	<a href="assignment2"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
+	<a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
 	</footer>
 </body>
 

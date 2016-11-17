@@ -70,49 +70,55 @@ public class Assignment2Servlet extends HttpServlet {
 		} else {
 			queries = new ArrayList<String>();
 		}
-		try {
 
-			String number = InputFilter.filter(request.getParameter("number").trim());
-			String name = InputFilter.filter(request.getParameter("name").trim());
-			String brew_date = InputFilter.filter(request.getParameter("brew_date").trim());
-			String water = InputFilter.filter(request.getParameter("water").trim());
-			String yeast = InputFilter.filter(request.getParameter("yeast").trim());
-			String yeast_code = InputFilter.filter(request.getParameter("yeast_code").trim());
-			String pitching_temp = InputFilter.filter(request.getParameter("pitching_temp").trim());
-			String ferment_temp = InputFilter.filter(request.getParameter("ferment_temp").trim());
-			String og = InputFilter.filter(request.getParameter("og").trim());
-			String fg = InputFilter.filter(request.getParameter("fg").trim());
-			String package_date = InputFilter.filter(request.getParameter("package_date").trim());
-			String grist = InputFilter.filter(request.getParameter("grist").trim());
-			String hops = InputFilter.filter(request.getParameter("hops").trim());
-			String notes = InputFilter.filter(request.getParameter("notes").trim());
+		if (action.contains("logout")) {
+			session.setAttribute("authenticated", null);
+		} 
 
-			BrewingRecord record = new BrewingRecord(number, name, brew_date, grist, hops, water, yeast, yeast_code,
-					pitching_temp, ferment_temp, og, fg, package_date, notes);
+		if (!action.contains("login")){
+			try {
+				String number = InputFilter.filter(request.getParameter("number").trim());
+				String name = InputFilter.filter(request.getParameter("name").trim());
+				String brew_date = InputFilter.filter(request.getParameter("brew_date").trim());
+				String water = InputFilter.filter(request.getParameter("water").trim());
+				String yeast = InputFilter.filter(request.getParameter("yeast").trim());
+				String yeast_code = InputFilter.filter(request.getParameter("yeast_code").trim());
+				String pitching_temp = InputFilter.filter(request.getParameter("pitching_temp").trim());
+				String ferment_temp = InputFilter.filter(request.getParameter("ferment_temp").trim());
+				String og = InputFilter.filter(request.getParameter("og").trim());
+				String fg = InputFilter.filter(request.getParameter("fg").trim());
+				String package_date = InputFilter.filter(request.getParameter("package_date").trim());
+				String grist = InputFilter.filter(request.getParameter("grist").trim());
+				String hops = InputFilter.filter(request.getParameter("hops").trim());
+				String notes = InputFilter.filter(request.getParameter("notes").trim());
 
-			if (action.contentEquals("Create")) {
-				record.newUidpk();
-				queries.add(dataManager.addRecord(record));
+				BrewingRecord record = new BrewingRecord(number, name, brew_date, grist, hops, water, yeast, yeast_code,
+						pitching_temp, ferment_temp, og, fg, package_date, notes);
 
+				if (action.contentEquals("Create")) {
+					record.newUidpk();
+					queries.add(dataManager.addRecord(record));
+
+				}
+
+				if (action.contains("Delete")) {
+					record.setUidpk(InputFilter.filter(request.getParameter("uidpk")));
+					queries.add(dataManager.deleteRecord(record));
+
+				}
+
+				if (action.contains("Update")) {
+					record.setUidpk(request.getParameter("uidpk"));
+					queries.add(dataManager.updateRecord(record));
+				}
+
+				session.setAttribute("queries", queries);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("error",
+						HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
 			}
-
-			if (action.contains("Delete")) {
-				record.setUidpk(InputFilter.filter(request.getParameter("uidpk")));
-				queries.add(dataManager.deleteRecord(record));
-
-			}
-
-			if (action.contains("Update")) {
-				record.setUidpk(request.getParameter("uidpk"));
-				queries.add(dataManager.updateRecord(record));
-			}
-			
-			session.setAttribute("queries", queries);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error",
-					HttpServletResponse.SC_BAD_REQUEST + " Invalid user input, " + e.getMessage());
 		}
 
 		// End Table Page Actions
