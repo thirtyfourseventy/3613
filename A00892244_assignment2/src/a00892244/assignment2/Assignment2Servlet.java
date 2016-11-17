@@ -9,6 +9,8 @@ import a00892244.assignment2.data.InputFilter;
 import a00892244.tribble.util.Base64Decoder;
 
 import java.io.*;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +38,7 @@ public class Assignment2Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			List<BrewingRecord> brewingRecords;
-		
+
 			brewingRecords = dataManager.getAll();
 
 			request.setAttribute("records", brewingRecords);
@@ -44,10 +46,8 @@ public class Assignment2Servlet extends HttpServlet {
 			response.setContentType("text/html");
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
-			
-			dispatcher.forward(request, response);
-			
 
+			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,6 +62,14 @@ public class Assignment2Servlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+		List<String> queries;
+
+		if (session.getAttribute("queries") != null) {
+			queries = (ArrayList<String>) session.getAttribute("queries");
+		} else {
+			queries = new ArrayList<String>();
+		}
 		try {
 
 			String number = InputFilter.filter(request.getParameter("number").trim());
@@ -84,20 +92,22 @@ public class Assignment2Servlet extends HttpServlet {
 
 			if (action.contentEquals("Create")) {
 				record.newUidpk();
-				dataManager.addRecord(record);
+				queries.add(dataManager.addRecord(record));
 
 			}
 
 			if (action.contains("Delete")) {
 				record.setUidpk(InputFilter.filter(request.getParameter("uidpk")));
-				dataManager.deleteRecord(record);
+				queries.add(dataManager.deleteRecord(record));
 
 			}
 
 			if (action.contains("Update")) {
 				record.setUidpk(request.getParameter("uidpk"));
-				dataManager.updateRecord(record);
+				queries.add(dataManager.updateRecord(record));
 			}
+			
+			session.setAttribute("queries", queries);
 
 		} catch (Exception e) {
 			e.printStackTrace();

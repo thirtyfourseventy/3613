@@ -132,7 +132,7 @@ public class DataManager {
 		}
 	}
 
-	public void addRecord(BrewingRecord record) throws DataException {
+	public String addRecord(BrewingRecord record) throws DataException {
 
 		System.out.println("adding " + record.dataToString());
 		try {
@@ -143,6 +143,7 @@ public class DataManager {
 			System.out.println(strInsert);
 
 			int rowsAffected = stmt.executeUpdate(strInsert);
+			return strInsert;
 		} catch (SQLException e) {
 			throw new DataException(e.getMessage());
 		}
@@ -197,7 +198,7 @@ public class DataManager {
 		return allRecords;
 	}
 
-	public void deleteRecord(BrewingRecord record) throws DataException {
+	public String deleteRecord(BrewingRecord record) throws DataException {
 		String delete = "DELETE FROM " + tableName + " WHERE uidpk = '" + record.getUidpk() + "'";
 
 		System.out.println(delete);
@@ -206,12 +207,13 @@ public class DataManager {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			stmt.executeUpdate(delete);
 
+			return delete;
 		} catch (SQLException e) {
 			throw new DataException(e.getMessage());
 		}
 	}
 
-	public void updateRecord(BrewingRecord record) throws DataException {
+	public String updateRecord(BrewingRecord record) throws DataException {
 
 		try {
 			String update = "UPDATE " + tableName + " SET " + " number = '" + record.getNumber() + "'," + " name = '"
@@ -228,6 +230,8 @@ public class DataManager {
 
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			stmt.executeUpdate(update);
+			
+			return update;
 
 		} catch (SQLException e) {
 			throw new DataException(e.getMessage());

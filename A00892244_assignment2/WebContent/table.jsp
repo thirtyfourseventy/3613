@@ -282,7 +282,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 					<textarea name="notes" form="new_batch_form" maxlength="512"
 						cols="64" rows="8"></textarea>
 					<hr />
-					<button type="submit" name="action" value="Create"><%=resourceBundle.getString("Project_Name")%></button>
+					<button type="submit" name="action" value="Create"><%=resourceBundle.getString("Create_Button")%></button>
 				</div>
 			</form>
 
@@ -292,7 +292,8 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 	
 	<footer>
 	<h4>Edward Lambke A00892244 <%=resourceBundle.getString("Assignment_Title")%></h4>
-	<a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
+	<a href="summary.jsp"><%=resourceBundle.getString("Summary_Page")%></a>
+	<a href="assignment2"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
 	</footer>
 </body>
 
