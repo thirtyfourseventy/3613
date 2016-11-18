@@ -28,10 +28,12 @@ public class Assignment2Servlet extends HttpServlet {
 
 	private DataManager dataManager;
 	private Properties props;
+	private String dbPropertiesPath;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 
+		dbPropertiesPath = getServletContext().getInitParameter("dbPropertiesPath");
 		props = new Properties();
 
 	}
@@ -78,20 +80,20 @@ public class Assignment2Servlet extends HttpServlet {
 			session.setAttribute("authenticated", null);
 		}
 
-		if (action.contains("login")) {
+		else if (action.contains("login")) {
 			try {
-				session.setAttribute("authenticated", true);
+
 				Decoder decoder = new Decoder();
 
 				String properties = decoder.readFromFileAndDecrypt(request.getParameter("password").toString(),
-						getServletContext().getResourceAsStream(
-								File.separator + "WEB-INF" + File.separator + "a00892244dbprops.caesar"));
+						getServletContext().getResourceAsStream(dbPropertiesPath));
 
-				System.out.println(properties);
+				// System.out.println(properties);
 
 				props.load(new ByteArrayInputStream(properties.getBytes()));
 
-				System.out.println("servlet password = " + request.getParameter("password").toString());
+				// System.out.println("servlet password = " +
+				// request.getParameter("password").toString());
 
 				if (dataManager == null) {
 					System.out.println("creating DataManager");
@@ -99,14 +101,17 @@ public class Assignment2Servlet extends HttpServlet {
 							props.getProperty("User"), props.getProperty("Password"), props.getProperty("DatabaseName"),
 							props.getProperty("Table"));
 				}
+
+				session.setAttribute("authenticated", true);
 			} catch (Exception e) {
 				session.setAttribute("authenticated", null);
-				System.out.println("error on login");
-				// e.printStackTrace();
+				System.out.println("***********ERROR ON LOGIN***************");
+				e.printStackTrace();
+				System.out.println("***********ERROR ON LOGIN***************");
 			}
 		}
 
-		if (!action.contains("login")) {
+		else {
 			try {
 				String number = InputFilter.filter(request.getParameter("number").trim());
 				String name = InputFilter.filter(request.getParameter("name").trim());
@@ -158,8 +163,7 @@ public class Assignment2Servlet extends HttpServlet {
 
 		if (session.getAttribute("authenticated") != null) {
 			doGet(request, response);
-		}
-		else {
+		} else {
 			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}

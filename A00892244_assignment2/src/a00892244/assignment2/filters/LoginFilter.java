@@ -10,31 +10,27 @@ import javax.servlet.http.*;
  * Edward Lambke A00892244
  */
 public class LoginFilter implements Filter {
-	private String PASSWORD = "java3613";
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
-		System.out.println("Filter this!");
-
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 
-		boolean authenticated = false;
+		boolean redirectToServlet = false;
 
 		if (session.getAttribute("authenticated") != null) {
-			authenticated = true;
+			redirectToServlet = true;
 		}
 
 		if (session.getAttribute("authenticated") == null) {
 			if (request.getParameter("password") != null) {
 				System.out.println("password = " + request.getParameter("password").toString());
-				authenticated = true;
+				redirectToServlet = true;
 			}
 		}
 
-		if (!authenticated) {
-			System.out.println("Back to login!");
+		if (!redirectToServlet) {
 			RequestDispatcher dispatcher = req.getSession().getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		} else {
