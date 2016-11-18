@@ -29,10 +29,7 @@ public class LoginFilter implements Filter {
 		if (session.getAttribute("authenticated") == null) {
 			if (request.getParameter("password") != null) {
 				System.out.println("password = " + request.getParameter("password").toString());
-				if (request.getParameter("password").toString().equals(PASSWORD)) {
-					session.setAttribute("authenticated", true);
-					authenticated = true;
-				}
+				authenticated = true;
 			}
 		}
 
@@ -45,16 +42,13 @@ public class LoginFilter implements Filter {
 		}
 	}
 
-
 	public void destroy() {
 	}
-
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

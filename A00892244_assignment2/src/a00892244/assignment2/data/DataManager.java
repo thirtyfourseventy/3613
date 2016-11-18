@@ -55,16 +55,13 @@ public class DataManager {
 
 	}
 
-	public DataManager(String driver, String url, String user, String password, String dbname, String table) {
-		try {
+	public DataManager(String driver, String url, String user, String password, String dbname, String table) throws ClassNotFoundException, SQLException {
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 
 			tableName = table;
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 	}
 
 	/**

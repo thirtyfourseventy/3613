@@ -6,12 +6,16 @@ import javax.servlet.http.*;
 import a00892244.assignment2.data.BrewingRecord;
 import a00892244.assignment2.data.DataManager;
 import a00892244.assignment2.data.InputFilter;
+import a00892244.assignment2.decode.Decoder;
 import a00892244.tribble.util.Base64Decoder;
 
 import java.io.*;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 
@@ -23,14 +27,12 @@ import java.util.List;
 public class Assignment2Servlet extends HttpServlet {
 
 	private DataManager dataManager;
+	private Properties props;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 
-		dataManager = new DataManager(getServletContext().getInitParameter("Driver"),
-				getServletContext().getInitParameter("URL"), getServletContext().getInitParameter("User"),
-				getServletContext().getInitParameter("Password"), getServletContext().getInitParameter("DatabaseName"),
-				getServletContext().getInitParameter("Table"));
+		props = new Properties();
 
 	}
 
@@ -59,6 +61,7 @@ public class Assignment2Servlet extends HttpServlet {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
@@ -73,9 +76,37 @@ public class Assignment2Servlet extends HttpServlet {
 
 		if (action.contains("logout")) {
 			session.setAttribute("authenticated", null);
-		} 
+		}
 
-		if (!action.contains("login")){
+		if (action.contains("login")) {
+			try {
+				session.setAttribute("authenticated", true);
+				Decoder decoder = new Decoder();
+
+				String properties = decoder.readFromFileAndDecrypt(request.getParameter("password").toString(),
+						getServletContext().getResourceAsStream(
+								File.separator + "WEB-INF" + File.separator + "a00892244dbprops.caesar"));
+
+				System.out.println(properties);
+
+				props.load(new ByteArrayInputStream(properties.getBytes()));
+
+				System.out.println("servlet password = " + request.getParameter("password").toString());
+
+				if (dataManager == null) {
+					System.out.println("creating DataManager");
+					dataManager = new DataManager(props.getProperty("Driver"), props.getProperty("URL"),
+							props.getProperty("User"), props.getProperty("Password"), props.getProperty("DatabaseName"),
+							props.getProperty("Table"));
+				}
+			} catch (Exception e) {
+				session.setAttribute("authenticated", null);
+				System.out.println("error on login");
+				// e.printStackTrace();
+			}
+		}
+
+		if (!action.contains("login")) {
 			try {
 				String number = InputFilter.filter(request.getParameter("number").trim());
 				String name = InputFilter.filter(request.getParameter("name").trim());
@@ -125,7 +156,11 @@ public class Assignment2Servlet extends HttpServlet {
 
 		response.setContentType("text/html");
 
-		doGet(request, response);
-
+		if (session.getAttribute("authenticated") != null) {
+			doGet(request, response);
+		}
+		else {
+			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+		}
 	}
 }
