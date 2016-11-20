@@ -28,8 +28,8 @@ if (cookies != null) {
   if (language.equals("fr")) {
 	  locale = locale.FRENCH;
   }
-  if (language.equals("lc")) {
-	  locale = new Locale.Builder().setLanguage("lc").build();
+  if (language.equals("es")) {
+	  locale =  new Locale("es", "ES");
   }
 }
 
@@ -42,7 +42,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 
 	<header>
 		<h1><%=resourceBundle.getString("Project_Name")%></h1>
-		<a class="lang" id="en" href="assignment2">English</a>  <a class="lang" id="fr" href="assignment2">French</a> <a class="lang" id="lc" href="assignment2">lolcat</a>
+		<a class="lang" id="en" href="assignment2">English</a>  <a class="lang" id="fr" href="assignment2">Français</a> <a class="lang" id="es" href="assignment2">Español</a>
 		<script>
 			$(".lang").click(function () {
 				document.cookie = "language=" + $(this).attr("id");
@@ -50,13 +50,11 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 		
 		</script>
 		
-		<form id="logoutform" METHOD="POST" ACTION="assignment2">
-		<button type="submit" name="action" value="logout">logout</button>
 	</header>
 
 <section>
 <form id="loginform" METHOD="POST" ACTION="assignment2">
-	<input type="text" name="password" value="password"
+	<input type="password" name="password" value="password"
 						title="name is required" required
 						maxlength="64" size="32">
 	<button type="submit" name="action" value="login">login</button>

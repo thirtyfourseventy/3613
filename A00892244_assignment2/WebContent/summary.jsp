@@ -27,10 +27,10 @@ if (cookies != null) {
   	}
   }
   if (language.equals("fr")) {
-	  locale = locale.FRENCH;
+	  locale = Locale.FRENCH;
   }
-  if (language.equals("lc")) {
-	  locale = new Locale.Builder().setLanguage("lc").build();
+  if (language.equals("es")) {
+	  locale =  new Locale("es", "ES");
   }
 }
 
@@ -44,7 +44,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 
 	<header>
 		<h1><%=resourceBundle.getString("Project_Name")%></h1>
-		<a class="lang" id="en" href="summary.jsp">English</a>  <a class="lang" id="fr" href="summary.jsp">French</a>   <a class="lang" id="lc" href="summary.jsp">lolcat</a>
+		<a class="lang" id="en" href="summary.jsp">English</a>  <a class="lang" id="fr" href="summary.jsp">Français</a>   <a class="lang" id="es" href="summary.jsp">Español</a>
 		<script>
 			$(".lang").click(function () {
 				document.cookie = "language=" + $(this).attr("id");
