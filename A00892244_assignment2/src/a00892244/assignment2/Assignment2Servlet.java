@@ -105,6 +105,7 @@ public class Assignment2Servlet extends HttpServlet {
 				session.setAttribute("authenticated", true);
 			} catch (Exception e) {
 				session.setAttribute("authenticated", null);
+				request.setAttribute("error", "Invalid_Password");
 				System.out.println("***********ERROR ON LOGIN***************");
 				e.printStackTrace();
 				System.out.println("***********ERROR ON LOGIN***************");

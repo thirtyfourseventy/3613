@@ -82,3 +82,7 @@ td, th {
 .instructions {
 	text-align: left;
 }
+
+#loginform {
+	height: 100px;
+}

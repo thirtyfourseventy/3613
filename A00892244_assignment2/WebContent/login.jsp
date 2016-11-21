@@ -53,11 +53,16 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 	</header>
 
 <section>
+
+<h3><%=resourceBundle.getString("Login_Instructions")%></h3>
+
 <form id="loginform" METHOD="POST" ACTION="assignment2">
-	<input type="password" name="password" value="password"
-						title="name is required" required
+	<input type="password" name="password" title="name is required" required
 						maxlength="64" size="32">
 	<button type="submit" name="action" value="login">login</button>
+	<% if (request.getAttribute("error")!=null) {%>
+		<h4 class="invalid_password"><%=resourceBundle.getString("Invalid_Password")%></h4>
+	<%} %>
 
 </form>
 </section>
