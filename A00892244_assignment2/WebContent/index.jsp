@@ -64,9 +64,7 @@ $(".lang").click(function () {
 <h4><%=resourceBundle.getString("Index_Page_Instructions_Title")%></h4>
 
 <ul><li><%=resourceBundle.getString("Read_Write_Auth_Instructions")%></li>
-<li><%=resourceBundle.getString("Read_Only_Instructions")%></li>
-<li><%=resourceBundle.getString("Logout_Instructions")%></li>
-<li><%=resourceBundle.getString("Auth_Limitations")%></li></ul>
+</ul>
 
 <h4><%=resourceBundle.getString("DB_Page_Instructions_Title")%></h4>
 
