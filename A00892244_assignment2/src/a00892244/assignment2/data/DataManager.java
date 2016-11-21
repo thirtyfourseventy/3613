@@ -55,12 +55,13 @@ public class DataManager {
 
 	}
 
-	public DataManager(String driver, String url, String user, String password, String dbname, String table) throws ClassNotFoundException, SQLException {
+	public DataManager(String driver, String url, String user, String password, String dbname, String table)
+			throws ClassNotFoundException, SQLException {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+		Class.forName(driver);
+		con = DriverManager.getConnection(url, user, password);
 
-			tableName = table;
+		tableName = table;
 
 	}
 
@@ -118,6 +119,13 @@ public class DataManager {
 					+ "VALUES('5ec92198-03b4-41bb-b5a9-91db230760cd',113,'Black Beer thing','07-15-2016','10lbs Weyermann Bohemian, 6oz Carafa sp 2',"
 					+ "'2015 Homegrown Hallertau: 1oz @ FW, 1oz in chill keg, Store bought Saaz 1oz 4.5%AA @ FW','pure vancouver tap water',"
 					+ "'US-05','11224 022 1717 01 2017','12C','18C','1.048',1.012,4.825737265,'07-30-2016','Dark')";
+			rowsAffected = stmt.executeUpdate(strInsert);
+
+			strInsert = "INSERT INTO " + tableName + "(uidpk, number, name, brew_date, grist, hops, water, "
+					+ "yeast, yeast_code, pitching_temp, ferment_temp, og, fg, abv, package_date, notes) "
+					+ "VALUES('3ceb023d-5a9c-44c1-8277-e9ab2aabcd61',118,'Dark Ruby Mild','10-29-2016','9lb Simpsons Golden Promise, 3lb Simpsons Dark Crystal',"
+					+ "'1oz Cascade, .5oz EKG @ FW, .5oz EKG in chill keg','1tsp CaCl, .5tsp CaSO4',"
+					+ "'S-04','Repitch from #117','18C','18C','1.055',1.016,5.227882038,'11-16-2016','1 gal Hobgoblin Cask, 4.5 gal in corny')";
 			rowsAffected = stmt.executeUpdate(strInsert);
 
 			queryResults = stmt.executeQuery("SELECT * FROM " + tableName);
@@ -227,7 +235,7 @@ public class DataManager {
 
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			stmt.executeUpdate(update);
-			
+
 			return update;
 
 		} catch (SQLException e) {

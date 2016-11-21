@@ -86,7 +86,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 			<em>***<%=record.getName() %> ***
 			</em> 
 			<% if (record.getBrew_date().trim().length() > 0) {
-				out.print(" brewed: " + record.getBrew_date() );
+				out.print(resourceBundle.getString("Brewed") + ": " + record.getBrew_date() );
 			}
 			%>
 			
@@ -110,70 +110,70 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 					value="<%=record.getUidpk() %>">
 
 				<div class="form_fields">
-					<h4>Batch #</h4>
+					<h4><%=resourceBundle.getString("Batch_Number")%></h4>
 					<input type="text" name="number"
 						value="<%=record.getNumber() %>" pattern="[0-9]{1,4}"
 						title="####" required maxlength="4" size="4">
 				</div>
 				<div class="form_fields">
-					<h4>Name</h4>
+					<h4><%=resourceBundle.getString("Name")%></h4>
 					<input type="text" name="name"
 						value="<%=record.getName() %>"
-						pattern="[\s\S]*\S[\s\S]*" title="name is required" required
+						pattern="[\s\S]*\S[\s\S]*" title="<%=resourceBundle.getString("Name_Is_Required")%>"
 						maxlength="64" size="32">
 				</div>
 				<div class="form_fields">
-					<h4>Brew Date</h4>
+					<h4><%=resourceBundle.getString("Brew_Date")%></h4>
 					<input type="text" name="brew_date" id="datepicker"
 						value="<%=record.getBrew_date() %>" maxlength="64"
 						size="12">
 				</div>
 				<div class="form_fields">
-					<h4>Grist</h4>
+					<h4><%=resourceBundle.getString("Grist")%></h4>
 					<textarea name="grist" form="edit_form_<%=record.getUidpk() %>" maxlength="512" cols="64"
 						rows="8"><%=record.getGrist() %></textarea>
 				</div>
 				<div class="form_fields">
-					<h4>Hops</h4>
+					<h4><%=resourceBundle.getString("Hops")%></h4>
 					<textarea name="hops" form="edit_form_<%=record.getUidpk() %>" maxlength="512" cols="64"
 						rows="8"><%=record.getHops() %></textarea>
 				</div>
 				<div class="form_fields">
-					<h4>Water</h4>
+					<h4><%=resourceBundle.getString("Water")%></h4>
 					<input type="text" name="water"
 						value="<%=record.getWater() %>" maxlength="64" size="64">
 				</div>
 				<div class="form_fields">
-					<h4>Yeast</h4>
+					<h4><%=resourceBundle.getString("Yeast")%></h4>
 					<input type="text" name="yeast"
 						value="<%=record.getYeast() %>" maxlength="64" size="32">
 				</div>
 				<div class="form_fields">
-					<h4>Yeast Code</h4>
+					<h4><%=resourceBundle.getString("Yeast_Code")%></h4>
 					<input type="text" name="yeast_code"
 						value="<%=record.getYeast_code() %>" maxlength="64"
 						size="32">
 				</div>
 				<div class="form_fields">
-					<h4>Pitching Temp</h4>
+					<h4><%=resourceBundle.getString("Pitching_Temperature")%></h4>
 					<input type="text" name="pitching_temp"
 						value="<%=record.getPitching_temp() %>" maxlength="64"
 						size="12">
 				</div>
 				<div class="form_fields">
-					<h4>Ferment Temp</h4>
+					<h4><%=resourceBundle.getString("Fermentation_Temperature")%></h4>
 					<input type="text" name="ferment_temp"
 						value="<%=record.getFerment_temp() %>" maxlength="64"
 						size="12">
 				</div>
 				<div class="form_fields">
-					<h4>Original Gravity</h4>
+					<h4><%=resourceBundle.getString("Original_Gravity")%></h4>
 					<input type="text" name="og" value="<%=record.getOg() %>"
 						pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###, typically between 1.000 and 1.100" maxlength="6"
 						size="8">
 				</div>
 				<div class="form_fields">
-					<h4>Final Gravity</h4>
+					<h4><%=resourceBundle.getString("Final_Gravity")%></h4>
 					<input type="text" name="fg" value="<%=record.getFg() %>"
 						pattern="[0,1](?:\.[0-9]{1,3})?" title="#.###, typically between 1.000 and 1.100" maxlength="6"
 						size="8">
@@ -186,12 +186,12 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 						size="8" disabled>
 				</div>
 				<div class="form_fields">
-					<h4>Package Date</h4>
+					<h4><%=resourceBundle.getString("Package_Date")%></h4>
 					<input type="text" name="package_date" id="datepicker"
 						value="<%=record.getPackage_date() %>" maxlength="64">
 				</div>
 				<div class="form_fields">
-					<h4>Notes</h4>
+					<h4><%=resourceBundle.getString("Notes")%></h4>
 					<textarea name="notes" form="edit_form_<%=record.getUidpk() %>" maxlength="512" cols="64"
 						rows="8"><%=record.getNotes() %></textarea>
 					<hr />
@@ -216,57 +216,57 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 
 			<form id="new_batch_form" METHOD="POST" ACTION="assignment2">
 				<div class="form_fields">
-					<h4>Batch #</h4>
+					<h4><%=resourceBundle.getString("Batch_Number")%></h4>
 					<input type="text" name="number" pattern="[0-9]{1,4}" title="####"
 						required maxlength="4" size="4">
 				</div>
 				<div class="form_fields">
-					<h4>Name</h4>
+					<h4><%=resourceBundle.getString("Name")%></h4>
 					<input type="text" name="name" pattern="[\s\S]*\S[\s\S]*"
-						title="name is required" required maxlength="64" size="32">
+						title="<%=resourceBundle.getString("Name_Is_Required")%>" required maxlength="64" size="32">
 				</div>
 				<div class="form_fields">
-					<h4>Brew Date</h4>
+					<h4><%=resourceBundle.getString("Brew_Date")%></h4>
 					<input type="text" name="brew_date" id="datepicker" maxlength="64"
 						size="12">
 				</div>
 				<div class="form_fields">
-					<h4>Grist</h4>
+					<h4><%=resourceBundle.getString("Grist")%></h4>
 					<textarea name="grist" form="new_batch_form" maxlength="512"
 						cols="64" rows="8"></textarea>
 				</div>
 				<div class="form_fields">
-					<h4>Hops</h4>
+					<h4><%=resourceBundle.getString("Hops")%></h4>
 					<textarea name="hops" form="new_batch_form" maxlength="512"
 						cols="64" rows="8"></textarea>
 				</div>
 				<div class="form_fields">
-					<h4>Water</h4>
+					<h4><%=resourceBundle.getString("Water")%></h4>
 					<input type="text" name="water" maxlength="64" size="64">
 				</div>
 				<div class="form_fields">
-					<h4>Yeast</h4>
+					<h4><%=resourceBundle.getString("Yeast")%></h4>
 					<input type="text" name="yeast" maxlength="64" size="32">
 				</div>
 				<div class="form_fields">
-					<h4>Yeast Code</h4>
+					<h4><%=resourceBundle.getString("Yeast_Code")%></h4>
 					<input type="text" name="yeast_code" maxlength="64" size="32">
 				</div>
 				<div class="form_fields">
-					<h4>Pitching Temp</h4>
+					<h4><%=resourceBundle.getString("Pitching_Temperature")%></h4>
 					<input type="text" name="pitching_temp" maxlength="64" size="12">
 				</div>
 				<div class="form_fields">
-					<h4>Ferment Temp</h4>
+					<h4><%=resourceBundle.getString("Fermentation_Temperature")%></h4>
 					<input type="text" name="ferment_temp" maxlength="64" size="12">
 				</div>
 				<div class="form_fields">
-					<h4>Original Gravity</h4>
+					<h4><%=resourceBundle.getString("Original_Gravity")%></h4>
 					<input type="text" name="og" pattern="[0,1](?:\.[0-9]{1,3})?"
 						title="#.###, typically between 1.000 and 1.100" maxlength="6" size="8">
 				</div>
 				<div class="form_fields">
-					<h4>Final Gravity</h4>
+					<h4><%=resourceBundle.getString("Final_Gravity")%></h4>
 					<input type="text" name="fg" pattern="[0,1](?:\.[0-9]{1,3})?"
 						title="#.###, typically between 1.000 and 1.100" maxlength="6" size="8">
 				</div>
@@ -276,12 +276,12 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 						title="#.###, typically between 1.000 and 1.100" maxlength="8" size="8" disabled placeholder="calculated">
 				</div>
 				<div class="form_fields">
-					<h4>Package Date</h4>
+					<h4><%=resourceBundle.getString("Package_Date")%></h4>
 					<input type="text" name="package_date" id="datepicker"
 						maxlength="64">
 				</div>
 				<div class="form_fields">
-					<h4>Notes</h4>
+					<h4><%=resourceBundle.getString("Notes")%></h4>
 					<textarea name="notes" form="new_batch_form" maxlength="512"
 						cols="64" rows="8"></textarea>
 					<hr />
@@ -295,8 +295,8 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 	
 	<footer>
 	<h4>Edward Lambke A00892244 <%=resourceBundle.getString("Assignment_Title")%></h4>
-	<a href="summary.jsp"><%=resourceBundle.getString("Summary_Page")%></a>
-	<a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
+	<h5><a href="summary.jsp"><%=resourceBundle.getString("Summary_Page")%></a></h5>
+	<h5><a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a></h5>
 	</footer>
 </body>
 

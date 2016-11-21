@@ -52,7 +52,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 		
 		</script>
 	</header>
-<section>
+<section id="summary">
 <h2><%=resourceBundle.getString("Query_History")%></h2>
 
 <ol>
@@ -70,7 +70,7 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("a00892244.assignment2.
 
 	<footer>
 	<h4>Edward Lambke A00892244 <%=resourceBundle.getString("Assignment_Title")%></h4>
-    <a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a>
+    <h5><a href="index.jsp"><%=resourceBundle.getString("Return_To_Homepage_Link")%></a></h5>
 	</footer>
 </body>
 

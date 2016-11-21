@@ -86,3 +86,7 @@ td, th {
 #loginform {
 	height: 100px;
 }
+
+#summary li{
+	text-align: left;
+}
